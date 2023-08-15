@@ -1,35 +1,31 @@
 import axios from "axios";
 import { useState } from "react";
+import NavBar from "./component/NavBar";
+import GlobalStyle from "./GlobalStyle";
+import FormBox from "./component/FormBox";
+import { styled } from "styled-components";
 
 function App() {
-  const [text, setText] = useState("");
-  const [messages, setMessages] = useState("");
+  const [response, setResponse] = useState("");
 
-  const onChange = (e) => {
-    setText(e.target.value);
-  };
-
-  const onSendClick = async () => {
+  const onSendClick = async (msg) => {
     // 새로운 message 만들기
     const newMessage = [
       {
         role: "system",
-        content:
-          "You are a wine expert who has a detailed and deep knowledge of wine.",
+        content: "You are a wine sommelier who can recommend perfect wine.",
       },
       {
         role: "user",
-        content: text,
+        content: `Can you recommend 5 ${msg.type} wines which is ${msg.body} bodied, ${msg.tannin} tannin, ${msg.sweetness} sweetness, ${msg.acidity} acidity? answer me with specific wine name only.`,
       },
     ];
-    // reset
-    setText("");
 
     // 서버에 요청 보내기
     axios
       .post("/chat", newMessage)
       .then((res) => {
-        setMessages(res.data);
+        setResponse(res.data);
       })
       .catch((err) => {
         console.log("Error response:", err.response);
@@ -37,15 +33,20 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>Wine bot</h1>
-      <input type="text" value={text} onChange={onChange} />
-      <button onClick={onSendClick}>send</button>
-      <br />
-      <span></span>
-      <span>answer: {messages}</span>
-    </div>
+    <Container>
+      <GlobalStyle />
+      <NavBar />
+      <FormBox onSendClick={onSendClick} />
+      <div>{response}</div>
+    </Container>
   );
 }
 
 export default App;
+
+const Container = styled.div`
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
