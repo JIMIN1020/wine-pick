@@ -23,7 +23,7 @@ app.listen(PORT, () => {
   console.log(`Server On : http://localhost:${PORT}/`);
 });
 
-/* ---------- OpenAI API ---------- */
+/* ------------- OpenAI API ------------- */
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
@@ -40,7 +40,6 @@ app.post("/chat", async (req, res) => {
   // 요청 데이터
   const chatCompletion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
-    temperature: 2,
     messages: messages,
   });
 

@@ -10,6 +10,7 @@ const Types = ({ type, setType }) => {
           <input
             type="radio"
             checked={type === "Red"}
+            readOnly
             onClick={() => setType("Red")}
           />
           <span>Red</span>
@@ -18,6 +19,7 @@ const Types = ({ type, setType }) => {
           <input
             type="radio"
             checked={type === "White"}
+            readOnly
             onClick={() => setType("White")}
           />
           <span>White</span>
@@ -26,6 +28,7 @@ const Types = ({ type, setType }) => {
           <input
             type="radio"
             checked={type === "Sparkling"}
+            readOnly
             onClick={() => setType("Sparkling")}
           />
           <span>Sparkling</span>
@@ -34,6 +37,7 @@ const Types = ({ type, setType }) => {
           <input
             type="radio"
             checked={type === "Rosé"}
+            readOnly
             onClick={() => setType("Rosé")}
           />
           <span>Rosé</span>
@@ -42,6 +46,7 @@ const Types = ({ type, setType }) => {
           <input
             type="radio"
             checked={type === "Dessert"}
+            readOnly
             onClick={() => setType("Dessert")}
           />
           <span>Dessert</span>

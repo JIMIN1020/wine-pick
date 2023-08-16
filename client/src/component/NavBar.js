@@ -20,7 +20,7 @@ const Navigation = styled.nav`
   width: 1200px;
   height: 70px;
   background-color: white;
-  border-radius: 20px;
+  border-radius: 30px;
   margin-top: 20px;
   margin-bottom: 50px;
 

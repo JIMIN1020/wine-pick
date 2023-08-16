@@ -5,13 +5,14 @@ const RangeInput = ({ title, left, right, padding, value, setValue }) => {
   return (
     <Container>
       <h4>{title}</h4>
-      <RangeBox padding={padding}>
+      <RangeBox $padding={padding}>
         <span>{left}</span>
         <Range>
           <Option selected={value === "1"}>
             <input
               type="radio"
               checked={value === "1"}
+              readOnly
               onClick={() => setValue("1")}
             />
             <span>1</span>
@@ -20,6 +21,7 @@ const RangeInput = ({ title, left, right, padding, value, setValue }) => {
             <input
               type="radio"
               checked={value === "2"}
+              readOnly
               onClick={() => setValue("2")}
             />
             <span>2</span>
@@ -28,6 +30,7 @@ const RangeInput = ({ title, left, right, padding, value, setValue }) => {
             <input
               type="radio"
               checked={value === "3"}
+              readOnly
               onClick={() => setValue("3")}
             />
             <span>3</span>
@@ -36,6 +39,7 @@ const RangeInput = ({ title, left, right, padding, value, setValue }) => {
             <input
               type="radio"
               checked={value === "4"}
+              readOnly
               onClick={() => setValue("4")}
             />
             <span>4</span>
@@ -44,6 +48,7 @@ const RangeInput = ({ title, left, right, padding, value, setValue }) => {
             <input
               type="radio"
               checked={value === "5"}
+              readOnly
               onClick={() => setValue("5")}
             />
             <span>5</span>
@@ -76,7 +81,7 @@ const RangeBox = styled.div`
   width: 600px;
   justify-content: center;
   box-sizing: border-box;
-  padding-left: ${(props) => (props.padding ? "25px" : "0")};
+  padding-left: ${(props) => (props.$padding === "true" ? "25px" : "0")};
 `;
 
 const Range = styled.div`
