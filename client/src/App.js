@@ -15,14 +15,17 @@ function App() {
     const getKeywords = () => {
       const words = response.split("\n");
       setKeywords(words);
+      console.log(words);
     };
     getKeywords();
   }, [response]);
 
   /* ------------- OpenAI API 요청 ------------- */
   const onSendClick = async (msg) => {
+    // 메세지 만들기
     const question = `please recommend 5 ${msg.type} wine products which is ${msg.body} bodied, ${msg.tannin} tannin, ${msg.sweetness} sweetness, ${msg.acidity} acidity. Answer specific wine names only without numbering.`;
-    // 새로운 message 만들기
+
+    // message 배열
     const newMessage = [
       {
         role: "system",
@@ -44,16 +47,21 @@ function App() {
       },
     ];
 
-    // 서버에 요청 보내기
+    // openAI API 요청
     axios
       .post("/chat", newMessage)
       .then((res) => {
         setResponse(res.data);
-        // console.log(res.data);
       })
       .catch((err) => {
         console.log("Error response:", err);
       });
+
+    // Naver API 요청
+    axios
+      .post("/search/encyc", { query: "red wine" })
+      .then((res) => console.log("response ->", res.data))
+      .catch((err) => console.log("error!: ", err));
   };
 
   return (

@@ -9,6 +9,7 @@ const MessageBox = () => {
     <Container>
       <Title>
         <h4>취향대로 와인 추천받기 🍷</h4>
+        <span>I want to get recommendations for..</span>
         <div>
           <Typing />
         </div>
@@ -44,7 +45,7 @@ const Title = styled.div`
   flex-direction: column;
   h4 {
     font-size: 35px;
-    margin: 5px 20px;
+    margin: 10px 20px;
   }
   span {
     margin-left: 25px;

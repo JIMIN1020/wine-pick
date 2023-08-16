@@ -6,13 +6,13 @@ const Typing = () => {
     <TypingBox>
       <TypeAnimation
         sequence={[
-          "Getting recommendations for",
+          "Full-bodied dry Red wine.",
           1000, // wait 1s before replacing "Mice" with "Hamsters"
-          "Getting recommendations for sweet wine.",
+          "Smooth, soft, medium-bodied White wine.",
           1000,
-          "Getting recommendations for full-bodied wine.",
+          "Fresh, fizzy Sparkling wine.",
           1000,
-          "Getting recommendations for dry wine.",
+          "Sweet, light-bodied Dessert wine.",
           1000,
         ]}
         wrapper="span"
@@ -38,5 +38,5 @@ const TypingBox = styled.button`
   background-color: rgba(172, 45, 49);
   padding: 5px 20px;
   border-radius: 20px;
-  margin: 10px 20px;
+  margin: 10px 40px;
 `;
