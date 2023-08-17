@@ -6,6 +6,7 @@ import { styled } from "styled-components";
 import MessageBox from "./component/MessageBox";
 import InputForm from "./component/InputForm";
 import WineInfo from "./component/WineInfo";
+import Loading from "./component/Loading";
 
 function App() {
   const [response, setResponse] = useState(""); // GPT 응답
@@ -90,6 +91,7 @@ function App() {
       <GlobalStyle />
       <NavBar />
       <FormBox>
+        {loading && <Loading />}
         <MessageBox />
         <InputForm onSendClick={onSendClick} />
       </FormBox>
@@ -121,13 +123,14 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   overflow: auto;
+  position: relative;
 `;
 
 const FormBox = styled.div`
   width: 95%;
   height: 600px;
   border-radius: 10px;
-  margin-bottom: 30px;
+  margin: 0 0;
 
   display: flex;
 

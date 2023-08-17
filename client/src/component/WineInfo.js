@@ -7,9 +7,9 @@ const WineInfo = ({ wine }) => {
     <Container>
       <Thumbnail>
         {wine.thumbnail ? (
-          <img src={wine.thumbnail} height="180" />
+          <img src={wine.thumbnail} height="180" alt="wine img" />
         ) : (
-          <img src={wineImg} width="150" />
+          <img src={wineImg} width="150" alt="wine img" />
         )}
       </Thumbnail>
       <Description>
