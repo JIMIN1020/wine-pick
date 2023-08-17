@@ -17,7 +17,7 @@ const NavBar = () => {
 export default NavBar;
 
 const Navigation = styled.nav`
-  width: 1200px;
+  width: 100%;
   height: 70px;
   background-color: white;
   border-radius: 30px;

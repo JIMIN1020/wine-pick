@@ -9,16 +9,33 @@ import InputForm from "./component/InputForm";
 function App() {
   const [response, setResponse] = useState(""); // GPT 응답
   const [keywords, setKeywords] = useState([]); // GPT 답변 가공한 검색 키워드들
+  const [wineData, setWineData] = useState([]); // 네이버에게 전달받은 와인 데이터
 
   /* ------------- GPT 답변 가공하기 ------------- */
   useEffect(() => {
     const getKeywords = () => {
       const words = response.split("\n");
       setKeywords(words);
-      console.log(words);
     };
     getKeywords();
   }, [response]);
+
+  /* ------------- 네이버 검색하기 ------------- */
+  useEffect(() => {
+    // 네이버 API 요청 함수
+    const encycSearch = () => {
+      keywords.forEach(async (word) => {
+        await axios
+          .post("/search/encyc", { query: word })
+          .then((res) => setWineData((prev) => [...prev, res.data.items[0]]))
+          .catch((err) => console.log("error!: ", err));
+      });
+    };
+    // 키워드 5개가 존재하면 검색 시작!
+    if (keywords.length === 5) {
+      encycSearch();
+    }
+  }, [keywords]);
 
   /* ------------- OpenAI API 요청 ------------- */
   const onSendClick = async (msg) => {
@@ -48,7 +65,7 @@ function App() {
     ];
 
     // openAI API 요청
-    axios
+    await axios
       .post("/chat", newMessage)
       .then((res) => {
         setResponse(res.data);
@@ -58,10 +75,10 @@ function App() {
       });
 
     // Naver API 요청
-    axios
-      .post("/search/encyc", { query: "red wine" })
-      .then((res) => console.log("response ->", res.data))
-      .catch((err) => console.log("error!: ", err));
+    // axios
+    //   .post("/search/encyc", { query: "레드와인" })
+    //   .then((res) => console.log("response -->", res.data.items[0]))
+    //   .catch((err) => console.log("error!: ", err));
   };
 
   return (
@@ -72,7 +89,7 @@ function App() {
         <MessageBox />
         <InputForm onSendClick={onSendClick} />
       </FormBox>
-      <div>{response}</div>
+      <div>{console.log(wineData)}</div>
     </Container>
   );
 }
@@ -80,14 +97,14 @@ function App() {
 export default App;
 
 const Container = styled.div`
-  width: 1200px;
+  width: 80vw;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const FormBox = styled.div`
-  width: 1100px;
+  width: 95%;
   height: 600px;
   border-radius: 10px;
 
