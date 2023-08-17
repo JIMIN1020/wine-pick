@@ -1,15 +1,23 @@
 import React from "react";
 import { styled } from "styled-components";
 import { FaWineGlass } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
     <Navigation>
-      <AppName>
-        <FaWineGlass className="icon" />
-        Wine Bot
-      </AppName>
-      <span>About</span>
+      <Link to="/" style={{ textDecoration: "none", color: "rgb(25, 25, 25)" }}>
+        <AppName>
+          <FaWineGlass className="icon" />
+          Wine Bot
+        </AppName>
+      </Link>
+      <Link
+        to="/about"
+        style={{ textDecoration: "none", color: "rgb(25, 25, 25)" }}
+      >
+        <span>About</span>
+      </Link>
     </Navigation>
   );
 };
