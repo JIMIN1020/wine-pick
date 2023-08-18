@@ -38,7 +38,12 @@ const Home = () => {
     const encycSearch = () => {
       keywords.forEach(async (word) => {
         await axios
-          .post("/search/encyc", { query: word })
+          .post(
+            process.env.NODE_ENV === "production"
+              ? "http://3.35.4.117/:4000/search/encyc"
+              : "http://localhost:4000/search/encyc",
+            { query: word }
+          )
           .then((res) => setWineData((prev) => [...prev, res.data.items[0]]))
           .catch((err) => console.log("error!: ", err));
       });
@@ -81,7 +86,12 @@ const Home = () => {
 
     // openAI API 요청
     await axios
-      .post("/chat", newMessage)
+      .post(
+        process.env.NODE_ENV === "production"
+          ? "http://3.35.4.117/:4000/chat"
+          : "http://localhost:4000/chat",
+        newMessage
+      )
       .then((res) => {
         setResponse(res.data);
       })
