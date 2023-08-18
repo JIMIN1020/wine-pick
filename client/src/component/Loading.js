@@ -1,12 +1,12 @@
 import React from "react";
 import { styled } from "styled-components";
-import { SyncLoader } from "react-spinners";
+// import { SyncLoader } from "react-spinners";
 
 const Loading = () => {
   return (
     <Container>
       <h4>추천 받는 중...</h4>
-      <SyncLoader color="white" />
+      {/* <SyncLoader color="white" /> */}
     </Container>
   );
 };
