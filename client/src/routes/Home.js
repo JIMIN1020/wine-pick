@@ -36,7 +36,7 @@ const Home = () => {
       setLoading(false);
     };
     // 키워드 5개가 존재하면 검색 시작!
-    if (keywords.length === 5) {
+    if (keywords.length === 5 && loading) {
       encycSearch();
     }
   }, [keywords]);
@@ -93,22 +93,20 @@ const Home = () => {
         <MessageBox />
         <InputForm onSendClick={onSendClick} />
       </FormBox>
-      {!loading && wineData.length > 0 ? (
-        <Temp>
+      {wineData.length > 0 && !loading ? (
+        <WineBox>
           <h2>내 취향에 맞는 와인은?</h2>
-        </Temp>
+          {!loading && wineData.length > 0
+            ? wineData.map((wine, i) => {
+                if (wine) {
+                  return <WineInfo wine={wine} id={i} />;
+                } else {
+                  return null;
+                }
+              })
+            : undefined}
+        </WineBox>
       ) : undefined}
-      <WineBox>
-        {!loading && wineData.length > 0
-          ? wineData.map((wine, i) => {
-              if (wine) {
-                return <WineInfo wine={wine} id={i} />;
-              } else {
-                return null;
-              }
-            })
-          : undefined}
-      </WineBox>
     </>
   );
 };
@@ -124,7 +122,7 @@ const FormBox = styled.div`
 
   display: flex;
 
-  background-color: white;
+  background-color: rgba(256, 256, 256, 0.97);
   box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1);
   -webkit-box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1);
   -moz-box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1);
@@ -132,7 +130,7 @@ const FormBox = styled.div`
 
 const Temp = styled.div`
   width: 100%;
-  height: 100px;
+  height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -145,4 +143,10 @@ const WineBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 70px 0;
+
+  h2 {
+    font-size: 25px;
+    color: white;
+  }
 `;

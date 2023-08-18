@@ -15,7 +15,7 @@ export default Loading;
 
 const Container = styled.div`
   position: absolute;
-  width: 95%;
+  width: 100%;
   height: 600px;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.4);

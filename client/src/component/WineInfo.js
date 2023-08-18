@@ -14,7 +14,11 @@ const WineInfo = ({ wine }) => {
       </Thumbnail>
       <Description>
         <h3>{wine.title}</h3>
-        <p>{wine.description ? wine.description : "상세 설명이 없습니다."}</p>
+        <p>
+          {wine.description
+            ? wine.description.replace(/<b>/g, "").replace(/<\/b>/g, "")
+            : "상세 설명이 없습니다."}
+        </p>
       </Description>
     </Container>
   );

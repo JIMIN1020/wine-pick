@@ -16,7 +16,7 @@ const NavBar = () => {
         to="/about"
         style={{ textDecoration: "none", color: "rgb(25, 25, 25)" }}
       >
-        <span>About</span>
+        <About>About</About>
       </Link>
     </Navigation>
   );
@@ -27,33 +27,47 @@ export default NavBar;
 const Navigation = styled.nav`
   width: 100%;
   height: 70px;
-  background-color: white;
+  /* background-color: rgba(256, 256, 256, 0.97); */
   border-radius: 30px;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 50px;
 
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   box-sizing: border-box;
   padding-left: 20px;
-  box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1);
+  /* box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1);
   -webkit-box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1);
-  -moz-box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1);
-
-  span {
-    font-size: 22px;
-  }
+  -moz-box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1); */
 `;
 
 const AppName = styled.span`
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  margin-right: 15px;
   font-weight: 600;
+  color: white;
+  font-size: 35px;
 
   .icon {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     margin: 0px 10px;
+  }
+`;
+
+const About = styled.span`
+  width: 83px;
+  height: 35px;
+  border-radius: 10px;
+  font-size: 22px;
+  font-weight: 550;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.3);
   }
 `;
