@@ -3,8 +3,16 @@ import { styled } from "styled-components";
 import wineImg from "../assets/images/wine-bottle.png";
 
 const WineInfo = ({ wine }) => {
+  /* ------------- 문자열 내 html 태그 처리 ------------- */
+  function createMarkup(html) {
+    return { __html: html };
+  }
+  /* ------------- 와인 클릭 시 링크로 이동 ------------- */
+  const onClick = () => {
+    window.open(wine.link);
+  };
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Thumbnail>
         {wine.thumbnail ? (
           <img src={wine.thumbnail} height="180" alt="wine img" />
@@ -13,12 +21,23 @@ const WineInfo = ({ wine }) => {
         )}
       </Thumbnail>
       <Description>
-        <h3>{wine.title}</h3>
-        <p>
-          {wine.description
-            ? wine.description.replace(/<b>/g, "").replace(/<\/b>/g, "")
-            : "상세 설명이 없습니다."}
-        </p>
+        <h3
+          dangerouslySetInnerHTML={createMarkup(
+            wine.title.replace(/<b>/g, "").replace(/<\/b>/g, "")
+          )}
+        />
+        <p
+          dangerouslySetInnerHTML={
+            wine.description
+              ? createMarkup(
+                  wine.description
+                    .replace(/<b>/g, "")
+                    .replace(/<\/b>/g, "")
+                    .replace("테이스팅 노트", "")
+                )
+              : createMarkup("상세 설명이 없습니다.")
+          }
+        />
       </Description>
     </Container>
   );
@@ -27,17 +46,22 @@ const WineInfo = ({ wine }) => {
 export default WineInfo;
 
 const Container = styled.div`
-  width: 600px;
+  width: 520px;
   height: 250px;
   background-color: white;
   margin: 20px 0px;
   border-radius: 15px;
 
   display: flex;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const Thumbnail = styled.div`
-  width: 170px;
+  width: 150px;
   height: 250px;
   border-radius: 15px;
   overflow: hidden;
@@ -48,13 +72,14 @@ const Thumbnail = styled.div`
 `;
 
 const Description = styled.div`
-  width: 380px;
-  height: 200px;
+  width: 370px;
+  height: 250px;
   box-sizing: border-box;
-  padding: 15px 15px;
+  padding: 15px 0px;
+  padding-right: 30px;
 
   h3 {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   p {

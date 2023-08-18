@@ -55,11 +55,11 @@ const About = () => {
         </h3>
         <Description>
           <p>
-            Chat GPT를 활용하기 때문에 때로는 적절하지 않은 추천 와인이 등장할
-            수 있습니다.
+            Chat GPT를 활용하기 때문에 때로는{" "}
+            <strong>적절하지 않은 추천 와인</strong>이 등장할 수 있습니다.
             <br />
             Chat GPT로부터 받은 추천 와인에 대한 정보가 Naver에 존재하지 않는
-            경우, 연관없는 정보가 나타날 수 있습니다.
+            경우, <strong>연관없는 정보</strong>가 나타날 수 있습니다.
           </p>
         </Description>
       </Container>
@@ -185,11 +185,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  /* background-color: rgba(256, 256, 256, 0.97); */
-  /* box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1);
-  -webkit-box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1);
-  -moz-box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1); */
 
   h3 {
     color: white;
