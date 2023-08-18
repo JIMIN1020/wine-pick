@@ -38,41 +38,51 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 // endpoint for chat GPT
-app.post("/chat", async (req, res) => {
-  // 요청값 -> 메세지 받아오기
-  const messages = req.body;
+app.post(
+  process.env.NODE_ENV === "production"
+    ? "http://3.35.4.117/:4000/search/encyc"
+    : "http://localhost:4000/search/encyc",
+  async (req, res) => {
+    // 요청값 -> 메세지 받아오기
+    const messages = req.body;
 
-  // 요청 데이터
-  const chatCompletion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: messages,
-  });
+    // 요청 데이터
+    const chatCompletion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: messages,
+    });
 
-  // response
-  res.send(chatCompletion.data.choices[0].message.content);
-});
+    // response
+    res.send(chatCompletion.data.choices[0].message.content);
+  }
+);
 
 /* ------------- Naver API ------------- */
-app.post("/search/encyc", function (req, res) {
-  var api_url =
-    "https://openapi.naver.com/v1/search/encyc?query=" +
-    encodeURI(req.body.query) +
-    "&display=1";
-  var request = require("request");
-  var options = {
-    url: api_url,
-    headers: {
-      "X-Naver-Client-Id": process.env.NAVER_CLIENT_ID,
-      "X-Naver-Client-Secret": process.env.NAVER_CLIENT_SECRET,
-    },
-  };
-  request.get(options, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      res.writeHead(200, { "Content-Type": "text/json;charset=utf-8" });
-      res.end(body);
-    } else {
-      res.status(response.statusCode).end();
-      console.log("error = " + response.statusCode);
-    }
-  });
-});
+app.post(
+  process.env.NODE_ENV === "production"
+    ? "http://3.35.4.117/:4000/search/encyc"
+    : "http://localhost:4000/search/encyc",
+  function (req, res) {
+    var api_url =
+      "https://openapi.naver.com/v1/search/encyc?query=" +
+      encodeURI(req.body.query) +
+      "&display=1";
+    var request = require("request");
+    var options = {
+      url: api_url,
+      headers: {
+        "X-Naver-Client-Id": process.env.NAVER_CLIENT_ID,
+        "X-Naver-Client-Secret": process.env.NAVER_CLIENT_SECRET,
+      },
+    };
+    request.get(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        res.writeHead(200, { "Content-Type": "text/json;charset=utf-8" });
+        res.end(body);
+      } else {
+        res.status(response.statusCode).end();
+        console.log("error = " + response.statusCode);
+      }
+    });
+  }
+);
