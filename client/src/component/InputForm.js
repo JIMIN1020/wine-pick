@@ -138,7 +138,7 @@ const InputForm = ({ onSendClick }) => {
 export default InputForm;
 
 const Container = styled.div`
-  width: 600px;
+  width: 55%;
   height: 600px;
   display: flex;
   flex-direction: column;
@@ -152,6 +152,14 @@ const Container = styled.div`
     height: 40px;
     display: flex;
     align-items: center;
+  }
+
+  @media screen and (max-width: 990px) {
+    width: 500px;
+  }
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    margin-top: 50px;
   }
 `;
 
@@ -181,4 +189,8 @@ const Wrapper = styled.div`
   padding-bottom: 10px;
   /* border: 2px solid lightgray; */
   border-radius: 10px;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;

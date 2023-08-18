@@ -36,6 +36,8 @@ const About = () => {
             사용자가 와인에 대한 취향을 입력하고 <strong>`추천받기`</strong>{" "}
             버튼을 클릭하면, 취향에 맞는 와인을 추천받을 수 있습니다.
             <br />
+          </p>
+          <p>
             입력 값에 따라 그에 맞는 와인을 찾는 과정은{" "}
             <strong>Chat GPT API (OpenAI API)</strong>를 활용하였고,{" "}
             <strong>Naver Search API</strong>를 통해 와인에 대한 정보를 가져오는
@@ -58,6 +60,8 @@ const About = () => {
             Chat GPT를 활용하기 때문에 때로는{" "}
             <strong>적절하지 않은 추천 와인</strong>이 등장할 수 있습니다.
             <br />
+          </p>
+          <p>
             Chat GPT로부터 받은 추천 와인에 대한 정보가 Naver에 존재하지 않는
             경우, <strong>연관없는 정보</strong>가 나타날 수 있습니다.
           </p>
@@ -193,6 +197,12 @@ const Container = styled.div`
     display: flex;
     align-items: center;
   }
+
+  @media screen and (max-width: 768px) {
+    h3 {
+      font-size: 22px;
+    }
+  }
 `;
 
 const Description = styled.div`
@@ -213,20 +223,27 @@ const Description = styled.div`
   -webkit-box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1);
   -moz-box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1);
 
-  h4 {
-    font-size: 23px;
-    margin: 20px 0;
-  }
-
   p {
     margin: 5px 0;
     line-height: 30px;
   }
+
+  @media screen and (max-width: 950px) {
+    width: 95%;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 13px;
+    line-height: normal;
+    padding: 20px 30px;
+  }
 `;
 
 const TechContainer = styled.div`
-  /* background-color: aliceblue; */
   display: flex;
+  @media screen and (max-width: 950px) {
+    flex-direction: column;
+  }
 `;
 
 const RowContainer = styled.div`
@@ -234,6 +251,10 @@ const RowContainer = styled.div`
   width: 300px;
   margin: 10px 10px;
   flex-direction: column;
+
+  @media screen and (max-width: 950px) {
+    margin: 0px 10px;
+  }
 `;
 
 const Tech = styled.div`

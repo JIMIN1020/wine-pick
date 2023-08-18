@@ -58,6 +58,13 @@ const Container = styled.div`
   &:hover {
     transform: scale(1.05);
   }
+
+  @media screen and (max-width: 600px) {
+    width: 80%;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const Thumbnail = styled.div`
@@ -69,6 +76,11 @@ const Thumbnail = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: 600px) {
+    height: 170px;
+    padding: 20px 0;
+  }
 `;
 
 const Description = styled.div`
@@ -84,5 +96,12 @@ const Description = styled.div`
 
   p {
     line-height: 25px;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 90%;
+    justify-content: center;
+    text-align: center;
+    padding: 0px 0px;
   }
 `;

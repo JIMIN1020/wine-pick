@@ -25,7 +25,7 @@ const MessageBox = () => {
 export default MessageBox;
 
 const Container = styled.div`
-  width: 500px;
+  width: 45%;
   height: 600px;
 
   display: flex;
@@ -37,6 +37,15 @@ const Container = styled.div`
 
   font-size: 20px;
   font-weight: 550;
+
+  @media screen and (max-width: 990px) {
+    width: 500px;
+    height: 570px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Title = styled.div`
@@ -45,10 +54,10 @@ const Title = styled.div`
   flex-direction: column;
   h4 {
     font-size: 35px;
-    margin: 10px 20px;
+    margin: 10px 30px;
   }
   span {
-    margin-left: 25px;
+    margin-left: 30px;
   }
 `;
 
@@ -64,4 +73,8 @@ const LottieBox = styled.div`
     height: 370px;
   }
   margin-bottom: 100px;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;

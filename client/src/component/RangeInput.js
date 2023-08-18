@@ -74,6 +74,9 @@ const Container = styled.div`
   h4 {
     margin: 10px 0;
   }
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const RangeBox = styled.div`
@@ -82,6 +85,14 @@ const RangeBox = styled.div`
   justify-content: center;
   box-sizing: border-box;
   padding-left: ${(props) => (props.$padding === "true" ? "25px" : "0")};
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+
+    span {
+      font-size: 13px;
+    }
+  }
 `;
 
 const Range = styled.div`
@@ -96,6 +107,10 @@ const Range = styled.div`
   align-items: center;
   box-sizing: border-box;
   padding: 0 10px;
+
+  @media screen and (max-width: 600px) {
+    width: 200px;
+  }
 `;
 
 const Option = styled.label`
@@ -117,5 +132,13 @@ const Option = styled.label`
     height: 0px;
     display: none;
     font-size: 13px;
+  }
+
+  @media screen and (max-width: 600px) {
+    padding: 0px 12px;
+
+    span {
+      font-size: 11px;
+    }
   }
 `;

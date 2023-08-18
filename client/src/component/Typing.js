@@ -38,5 +38,5 @@ const TypingBox = styled.button`
   background-color: rgba(172, 45, 49);
   padding: 5px 20px;
   border-radius: 20px;
-  margin: 10px 40px;
+  margin: 10px 45px;
 `;

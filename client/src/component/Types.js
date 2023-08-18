@@ -78,6 +78,15 @@ const Container = styled.div`
 
   div {
     display: flex;
+    @media screen and (max-width: 600px) {
+      width: 90%;
+      flex-wrap: wrap; /* Allow elements to wrap to the next line */
+      justify-content: center;
+      gap: 10px;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    width: 100%;
   }
 `;
 
@@ -102,5 +111,8 @@ const TypeButton = styled.label`
     height: 0px;
     display: none;
     font-size: 13px;
+  }
+
+  @media screen and (max-width: 768px) {
   }
 `;
