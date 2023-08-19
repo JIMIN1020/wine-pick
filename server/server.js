@@ -34,6 +34,7 @@ const openai = new OpenAIApi(configuration);
 
 // endpoint for chat GPT
 app.post("/chat", async (req, res) => {
+  console.log("api on!!!!");
   // 요청값 -> 메세지 받아오기
   const messages = req.body;
 
@@ -49,6 +50,7 @@ app.post("/chat", async (req, res) => {
 
 /* ------------- Naver API ------------- */
 app.post("/search/encyc", function (req, res) {
+  console.log("api on!!!!");
   var api_url =
     "https://openapi.naver.com/v1/search/encyc?query=" +
     encodeURI(req.body.query) +
