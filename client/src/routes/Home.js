@@ -13,6 +13,9 @@ const Home = () => {
   const [loading, setLoading] = useState(false); // 로딩중 사인
 
   const wineBoxRef = useRef(null);
+  const axiosInstance = axios.create({
+    baseURL: "https://wine-bot.fly.dev",
+  });
 
   /* ------------- 결과 포커싱 ------------- */
   useEffect(() => {
@@ -37,8 +40,14 @@ const Home = () => {
     // 네이버 API 요청 함수
     const encycSearch = () => {
       keywords.forEach(async (word) => {
-        await axios
-          .post("/search/encyc", { query: word })
+        await axiosInstance
+          .post(
+            "/search/encyc",
+            { query: word },
+            {
+              withCredentials: true,
+            }
+          )
           .then((res) => setWineData((prev) => [...prev, res.data.items[0]]))
           .catch((err) => console.log("error!: ", err));
       });
@@ -80,8 +89,10 @@ const Home = () => {
     ];
 
     // openAI API 요청
-    await axios
-      .post("/chat", newMessage)
+    await axiosInstance
+      .post("/chat", newMessage, {
+        withCredentials: true,
+      })
       .then((res) => {
         setResponse(res.data);
       })
