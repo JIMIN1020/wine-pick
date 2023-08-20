@@ -8,7 +8,12 @@ const app = express(); // app에 express 담기 -> 이를 통해 서버 관리!
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://wine-bot.netlify.app/", "https://localhost:3000"],
+    credential: true,
+  })
+);
 
 // port 할당: 0~65535 사이의 정수로된 임의의 숫자
 const PORT = process.env.PORT || 4000;
