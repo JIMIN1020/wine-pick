@@ -33,4 +33,18 @@ const Container = styled.div`
     margin-bottom: 20px;
     font-size: 24px;
   }
+
+  @media screen and (max-width: 1150px) {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 990px) {
+    width: 100%;
+    height: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    height: 100%;
+  }
 `;

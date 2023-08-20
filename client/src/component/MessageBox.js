@@ -3,12 +3,20 @@ import { styled } from "styled-components";
 import Lottie from "lottie-react";
 import winelottie from "../assets/winelottie.json";
 import Typing from "./Typing";
+import { SiOpenai } from "react-icons/si";
 
 const MessageBox = () => {
   return (
     <Container>
       <Title>
-        <h4>취향대로 와인 추천받기 🍷</h4>
+        <h4>
+          와인 추천받기{" "}
+          <span>
+            with Chat GPT
+            <SiOpenai style={{ marginLeft: "5px" }} />
+          </span>
+        </h4>
+
         <span>I want to get recommendations for..</span>
         <div>
           <Typing />
@@ -54,7 +62,14 @@ const Title = styled.div`
   flex-direction: column;
   h4 {
     font-size: 35px;
-    margin: 10px 30px;
+    margin: 10px 0px;
+    margin-left: 30px;
+    margin-right: 15px;
+
+    span {
+      font-size: 20px;
+      margin: 0 0;
+    }
   }
   span {
     margin-left: 30px;

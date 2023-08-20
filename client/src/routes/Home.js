@@ -128,6 +128,7 @@ const FormBox = styled.div`
   border-radius: 10px;
   margin: 0 0;
   position: relative;
+  margin-bottom: 30px;
 
   display: flex;
 

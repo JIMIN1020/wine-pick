@@ -15,11 +15,14 @@ const WineInfo = ({ wine }) => {
     <Container onClick={onClick}>
       <Thumbnail>
         {wine.thumbnail ? (
-          <img src={wine.thumbnail} height="180" alt="wine img" />
+          <img
+            src={wine.thumbnail.replace("http", "https")}
+            height="180"
+            alt="wine img"
+          />
         ) : (
           <img src={wineImg} width="150" alt="wine img" />
         )}
-        {console.log("thumb -> ", wine.thumbnail)}
       </Thumbnail>
       <Description>
         <h3
