@@ -2,6 +2,8 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const http = require("http");
+const https = require("https");
 const app = express(); // app에 express 담기 -> 이를 통해 서버 관리!
 
 // body-parser 세팅
@@ -61,6 +63,9 @@ app.post("/api/search/encyc", function (req, res) {
   var request = require("request");
   var options = {
     url: api_url,
+    httpsAgent: new https.Agent({
+      rejectUnauthorized: false,
+    }),
     headers: {
       "X-Naver-Client-Id": process.env.NAVER_CLIENT_ID,
       "X-Naver-Client-Secret": process.env.NAVER_CLIENT_SECRET,

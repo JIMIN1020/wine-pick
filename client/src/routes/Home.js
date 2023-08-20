@@ -5,7 +5,6 @@ import MessageBox from "../component/MessageBox";
 import InputForm from "../component/InputForm";
 import WineInfo from "../component/WineInfo";
 import axios from "axios";
-import https from "https";
 
 const Home = () => {
   const [response, setResponse] = useState(""); // GPT 응답
@@ -16,9 +15,6 @@ const Home = () => {
   const wineBoxRef = useRef(null);
   const axiosInstance = axios.create({
     baseURL: "https://wine-bot.fly.dev",
-    httpsAgent: new https.Agent({
-      rejectUnauthorized: false,
-    }),
   });
 
   /* ------------- 결과 포커싱 ------------- */
