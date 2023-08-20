@@ -87,6 +87,7 @@ const Home = () => {
       .post("/api/chat", newMessage)
       .then((res) => {
         setResponse(res.data);
+        console.log("response: ", response);
       })
       .catch((err) => {
         console.log("Error response:", err);
