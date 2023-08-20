@@ -19,6 +19,7 @@ const WineInfo = ({ wine }) => {
         ) : (
           <img src={wineImg} width="150" alt="wine img" />
         )}
+        {console.log("thumb -> ", wine.thumbnail)}
       </Thumbnail>
       <Description>
         <h3
