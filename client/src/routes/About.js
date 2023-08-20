@@ -7,6 +7,8 @@ import {
   FaReact,
   FaNodeJs,
   FaKeyboard,
+  FaFly,
+  FaSpinner,
 } from "react-icons/fa";
 import { BiLogoJavascript, BiSolidDownArrow } from "react-icons/bi";
 import { PiCursorClickFill, PiWarningDiamondFill } from "react-icons/pi";
@@ -18,6 +20,7 @@ import {
   SiReactrouter,
   SiAxios,
   SiNodemon,
+  SiNetlify,
 } from "react-icons/si";
 import { MdAnimation } from "react-icons/md";
 import { TbBrandVscode } from "react-icons/tb";
@@ -95,8 +98,12 @@ const About = () => {
                 <span>GitHub</span>
               </div>
               <div>
-                <FaAws className="icon" />
-                <span>AWS</span>
+                <SiNetlify className="icon" />
+                <span>Netlify</span>
+              </div>
+              <div>
+                <FaFly className="icon" />
+                <span>Fly.io</span>
               </div>
 
               <div>
@@ -169,6 +176,10 @@ const About = () => {
               <div>
                 <FaReact className="icon" />
                 <span>react-icons</span>
+              </div>
+              <div>
+                <FaSpinner className="icon" />
+                <span>react-spinners</span>
               </div>
             </Tech>
           </RowContainer>
