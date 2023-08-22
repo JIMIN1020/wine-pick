@@ -37,7 +37,7 @@ const InputForm = ({ onSendClick }) => {
         msg.tannin = "smooth";
         break;
       case "2":
-        msg.tannin = "a bit smooth";
+        msg.tannin = "smooth-medium";
         break;
       case "3":
         msg.tannin = "medium";

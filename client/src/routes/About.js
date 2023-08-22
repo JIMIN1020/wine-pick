@@ -156,7 +156,7 @@ const About = () => {
                   className="icon"
                   style={{ width: "25px", height: "18px" }}
                 />
-                <span>Naver Open API</span>
+                <span>Naver Search API</span>
               </div>
             </Tech>
             <Tech>
