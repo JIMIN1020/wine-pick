@@ -2,6 +2,8 @@
 
 > https://wine-bot.netlify.app/
 
+![wine](https://github.com/JIMIN1020/wine-bot/assets/121474189/8c14c00a-a24b-4aca-9816-23ca29684aa0)
+
 **React, Node.js**를 기반으로 개발한 와인 추천 앱입니다.
 
 사용자가 와인에 대한 취향을 입력하고 **`추천받기`** 버튼을 클릭하면, 취향에 맞는 와인을 추천받을 수 있습니다.
