@@ -2,7 +2,7 @@
 
 > https://wine-bot.netlify.app/
 
-![wine](https://github.com/JIMIN1020/wine-bot/assets/121474189/8c14c00a-a24b-4aca-9816-23ca29684aa0)
+![ezgif com-resize](https://github.com/JIMIN1020/wine-bot/assets/121474189/36c8411d-85c4-423d-aff7-2673b561f865)
 
 **React, Node.js**를 기반으로 개발한 와인 추천 앱입니다.
 
