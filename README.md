@@ -21,7 +21,7 @@
 <br>
 
 ## 기술 스택 & 사용한 라이브러리
-<img width="1072" alt="스크린샷 2023-08-28 오후 1 50 56" src="https://github.com/JIMIN1020/wine-bot/assets/121474189/36bd38a4-37d6-46c6-84c1-03f5355f7c69">
+<img width="1017" alt="스크린샷 2023-08-28 오후 2 01 29" src="https://github.com/JIMIN1020/wine-bot/assets/121474189/374f6f69-a19f-441c-b967-cd6ecdf38415">
 
 <br>
 <br>
