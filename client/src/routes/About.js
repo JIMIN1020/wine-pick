@@ -3,7 +3,6 @@ import { styled } from "styled-components";
 import {
   FaGitAlt,
   FaGithub,
-  FaAws,
   FaReact,
   FaNodeJs,
   FaKeyboard,
@@ -117,7 +116,7 @@ const About = () => {
               <h4>Front-end</h4>
               <div>
                 <FaReact className="icon" />
-                <span>React JS</span>
+                <span>React</span>
               </div>
               <div>
                 <SiReactrouter className="icon" />
@@ -132,11 +131,11 @@ const About = () => {
               <h4>Back-end</h4>
               <div>
                 <FaNodeJs className="icon" />
-                <span>Node JS</span>
+                <span>Node.js</span>
               </div>
               <div>
                 <SiExpress className="icon" />
-                <span>Express JS</span>
+                <span>Express</span>
               </div>
               <div>
                 <SiNodemon className="icon" />
