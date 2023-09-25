@@ -1,6 +1,6 @@
 # Wine Bot
 
-> https://wine-bot.netlify.app/
+> [프로그램 설명 페이지](https://jimin1020.notion.site/Wine-Bot-6489ece0622846efa949f10231dd398b?pvs=4)
 
 ![wine gif](https://github.com/JIMIN1020/wine-bot/assets/121474189/38b4e7cd-f4b3-4d5a-80ac-28d75d41e924)
 
