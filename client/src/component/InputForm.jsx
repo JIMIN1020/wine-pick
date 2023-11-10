@@ -18,13 +18,13 @@ const InputForm = ({ onSendClick }) => {
         msg.body = "light";
         break;
       case "2":
-        msg.body = "light-medium";
+        msg.body = "medium-";
         break;
       case "3":
         msg.body = "medium";
         break;
       case "4":
-        msg.body = "medium-full";
+        msg.body = "medium+";
         break;
       case "5":
         msg.body = "full";
@@ -34,19 +34,19 @@ const InputForm = ({ onSendClick }) => {
     }
     switch (tannin) {
       case "1":
-        msg.tannin = "smooth";
+        msg.tannin = "light";
         break;
       case "2":
-        msg.tannin = "smooth-medium";
+        msg.tannin = "medium+";
         break;
       case "3":
         msg.tannin = "medium";
         break;
       case "4":
-        msg.tannin = "medium-strong";
+        msg.tannin = "medium+";
         break;
       case "5":
-        msg.tannin = "strong";
+        msg.tannin = "high";
         break;
       default:
         break;
@@ -56,13 +56,13 @@ const InputForm = ({ onSendClick }) => {
         msg.sweetness = "low";
         break;
       case "2":
-        msg.sweetness = "low-medium";
+        msg.sweetness = "medium-";
         break;
       case "3":
         msg.sweetness = "medium";
         break;
       case "4":
-        msg.sweetness = "medium-high";
+        msg.sweetness = "medium+";
         break;
       case "5":
         msg.sweetness = "high";
@@ -75,13 +75,13 @@ const InputForm = ({ onSendClick }) => {
         msg.acidity = "low";
         break;
       case "2":
-        msg.acidity = "low-medium";
+        msg.acidity = "medium-";
         break;
       case "3":
         msg.acidity = "medium";
         break;
       case "4":
-        msg.acidity = "medium-high";
+        msg.acidity = "medium+";
         break;
       case "5":
         msg.acidity = "high";
