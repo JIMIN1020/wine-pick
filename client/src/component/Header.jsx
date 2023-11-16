@@ -24,21 +24,21 @@ export default Header;
 const HeaderBar = styled.header`
   width: 100vw;
   height: 80px;
-  /* background-color: rgba(172, 45, 49); */
   background-color: white;
   display: flex;
   align-items: center;
-  z-index: 999;
 
   position: fixed;
   top: 0;
-  /* box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); */
+  z-index: 999;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 `;
 
 const Nav = styled.nav`
   width: 100%;
   max-width: 1250px;
+  box-sizing: border-box;
+  padding: 0px 20px;
   margin: auto;
   display: flex;
   align-items: center;

@@ -1,11 +1,11 @@
 import React from "react";
-import { styled } from "styled-components";
+import styled from "styled-components";
 
-const Types = ({ type, setType }) => {
+function Step1({ type, setType }) {
   return (
     <Container>
-      <h4>와인 종류</h4>
-      <div>
+      <Title>와인 종류</Title>
+      <Form>
         <TypeButton selected={type === "Red"}>
           <input
             type="radio"
@@ -51,45 +51,45 @@ const Types = ({ type, setType }) => {
           />
           <span>Dessert</span>
         </TypeButton>
-      </div>
+      </Form>
     </Container>
   );
-};
+}
 
-export default Types;
+export default Step1;
 
 const Container = styled.div`
-  width: 550px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
 
-  h4 {
-    margin: 10px 0px;
-  }
+const Title = styled.h1`
+  height: 70px;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+`;
 
-  div {
-    display: flex;
-    @media screen and (max-width: 600px) {
-      width: 90%;
-      flex-wrap: wrap; /* Allow elements to wrap to the next line */
-      justify-content: center;
-      gap: 10px;
-    }
-  }
-  @media screen and (max-width: 600px) {
-    width: 100%;
-  }
+const Form = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 280px;
+  gap: 20px;
+  align-items: center;
 `;
 
 const TypeButton = styled.label`
   background-color: ${(props) =>
     props.selected ? "rgb(172, 45, 49, 1)" : "rgb(236, 236, 236)"};
+  width: 100px;
+  height: 200px;
   font-size: 16px;
   font-weight: 550;
-  padding: 0px 12px;
-  height: 30px;
-  border-radius: 30px;
+  border-radius: 10px;
   margin-left: 10px;
   cursor: pointer;
   color: ${(props) => (props.selected ? "white" : "rgb(25, 25, 25)")};
@@ -105,6 +105,8 @@ const TypeButton = styled.label`
     font-size: 13px;
   }
 
-  @media screen and (max-width: 768px) {
+  &:hover {
+    background-color: ${(props) =>
+      props.selected ? "rgb(172, 45, 49, 1)" : "rgb(214, 214, 214)"};
   }
 `;
