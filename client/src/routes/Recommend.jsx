@@ -25,7 +25,8 @@ function Recommend() {
 
   const wineBoxRef = useRef(null); // 결과물 포커싱
   const axiosInstance = axios.create({
-    baseURL: "https://wine-bot.fly.dev",
+    // baseURL: "https://wine-bot.fly.dev",
+    baseURL: "http://localhost:4000",
   });
 
   /* ------------- 결과 포커싱 ------------- */
@@ -50,10 +51,14 @@ function Recommend() {
   useEffect(() => {
     // 네이버 API 요청 함수
     const encycSearch = () => {
-      keywords.forEach(async (word) => {
+      keywords.forEach(async (wine) => {
+        // await axiosInstance
+        //   .post("/api/search/encyc", { query: wine })
+        //   .then((res) => setWineData((prev) => [...prev, res.data.items[0]]))
+        //   .catch((err) => console.log("error!: ", err));
         await axiosInstance
-          .post("/api/search/encyc", { query: word })
-          .then((res) => setWineData((prev) => [...prev, res.data.items[0]]))
+          .post("/vivino", { query: wine })
+          .then((res) => console.log(res.data))
           .catch((err) => console.log("error!: ", err));
       });
       setLoading(false);

@@ -51,6 +51,15 @@ function Step1({ type, setType }) {
           />
           <span>Dessert</span>
         </TypeButton>
+        <TypeButton selected={type === "Fortified"}>
+          <input
+            type="radio"
+            checked={type === "Fortified"}
+            readOnly
+            onClick={() => setType("Fortified")}
+          />
+          <span>Fortified</span>
+        </TypeButton>
       </Form>
     </Container>
   );

@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const http = require("http");
 const https = require("https");
+const { run } = require("./vivino");
 const app = express(); // app에 express 담기 -> 이를 통해 서버 관리!
 
 // body-parser 세팅
@@ -80,4 +81,16 @@ app.post("/api/search/encyc", function (req, res) {
       console.log("error = " + response.statusCode);
     }
   });
+});
+
+/* ------------- Vivino API ------------- */
+app.post("/vivino", async function (req, res) {
+  const { query: wine } = req.body;
+  console.log("wine->", wine);
+
+  // vivino API call
+  const result = await run(wine);
+
+  console.log("result->", result);
+  console.log("done!!!");
 });
