@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Step1 from "../component/steps/Step1";
-import Step2 from "../component/steps/Step2";
-import Step3 from "../component/steps/Step3";
-import Step4 from "../component/steps/Step4";
-import Step5 from "../component/steps/Step5";
+import TypeStep from "../component/steps/TypeStep";
+import RangeStep from "../component/steps/RangeStep";
 import axios from "axios";
 import WineInfo from "../component/WineInfo";
 import Loading from "../component/Loading";
@@ -47,25 +44,27 @@ function Recommend() {
     getKeywords();
   }, [response]);
 
-  /* ------------- 네이버 검색하기 ------------- */
+  /* ------------- 비비노 검색하기 ------------- */
   useEffect(() => {
-    // 네이버 API 요청 함수
-    const encycSearch = () => {
-      keywords.forEach(async (wine) => {
-        // await axiosInstance
-        //   .post("/api/search/encyc", { query: wine })
-        //   .then((res) => setWineData((prev) => [...prev, res.data.items[0]]))
-        //   .catch((err) => console.log("error!: ", err));
-        await axiosInstance
-          .post("/vivino", { query: wine })
-          .then((res) => console.log(res.data))
-          .catch((err) => console.log("error!: ", err));
-      });
-      setLoading(false);
+    // 비비노 API 요청 함수
+    const getWineData = async () => {
+      await axiosInstance
+        .post("/vivino", { query: keywords })
+        .then((res) => {
+          console.log("response->", res.data);
+
+          // 데이터 가공
+          const data = res.data.filter(
+            (data) => !data.hasOwnProperty("status")
+          );
+          setWineData(data);
+          setLoading(false);
+        })
+        .catch((err) => console.log("error!: ", err));
     };
     // 키워드 5개가 존재하면 검색 시작!
     if (keywords.length === 5 && loading) {
-      encycSearch();
+      getWineData();
     }
   }, [keywords]);
 
@@ -90,7 +89,7 @@ function Recommend() {
       {
         role: "assistant",
         content:
-          "Pinot Noir, Louis Jadot Bourgogne\nGrenache, Domaine de la Janasse Côtes du Rhône\nBarbera d'Alba, Pio Cesare Fides\nGamay, Marcel Lapierre Morgon\nZweigelt, Laurenz V. Friendly Grüner Veltliner",
+          "Louis Jadot Bourgogne Pinot Noir\nDomaine de la Janasse Côtes du Rhône Grenache\nPio Cesare Fides Barbera d'Alba\nMarcel Lapierre Morgon Gamay\nLaurenz V. Friendly Grüner Veltliner Zweigelt",
       },
       {
         role: "user",
@@ -109,7 +108,7 @@ function Recommend() {
       });
   };
 
-  const onClick = (e) => {
+  const onClick = async (e) => {
     if (step < 5) {
       if (step === 4) setButtonName("추천받기");
       setStep((prev) => prev + 1);
@@ -150,34 +149,66 @@ function Recommend() {
         </StepBox>
         <FormBox>
           {loading && <Loading />}
-          {step === 1 && <Step1 type={type} setType={setType} />}
-          {step === 2 && <Step2 body={body} setBody={setBody} />}
-          {step === 3 && <Step3 tannin={tannin} setTannin={setTannin} />}
-          {step === 4 && <Step4 acidity={acidity} setAcidity={setAcidity} />}
+          {step === 1 && <TypeStep type={type} setType={setType} />}
+          {step === 2 && (
+            <RangeStep
+              name="바디감"
+              state={body}
+              setState={setBody}
+              first="light"
+              last="full"
+            />
+          )}
+          {step === 3 && (
+            <RangeStep
+              name="타닌"
+              state={tannin}
+              setState={setTannin}
+              first="low"
+              last="strong"
+            />
+          )}
+          {step === 4 && (
+            <RangeStep
+              name="산도"
+              state={acidity}
+              setState={setAcidity}
+              first="low"
+              last="high"
+            />
+          )}
           {step === 5 && (
-            <Step5 sweetness={sweetness} setSweetness={setSweetness} />
+            <RangeStep
+              name="당도"
+              state={sweetness}
+              setState={setSweetness}
+              first="low"
+              last="high"
+            />
           )}
           <Bottom>
             <Button onClick={onClick}>{buttonName}</Button>
           </Bottom>
         </FormBox>
       </Container>
-      {wineData.length > 0 && !loading ? (
-        <WineBox tabIndex={0} ref={wineBoxRef}>
-          <h2>내 취향에 맞는 와인은?</h2>
-          <Wines>
-            {!loading && wineData.length > 0
-              ? wineData.map((wine, i) => {
-                  if (wine) {
-                    return <WineInfo wine={wine} id={i} />;
-                  } else {
-                    return null;
-                  }
-                })
-              : undefined}
-          </Wines>
-        </WineBox>
-      ) : undefined}
+      <Result>
+        {wineData.length > 0 && !loading ? (
+          <WineBox tabIndex={0} ref={wineBoxRef}>
+            <h2>내 취향에 맞는 와인은?</h2>
+            <Wines>
+              {!loading && wineData.length > 0
+                ? wineData.map((wine, i) => {
+                    if (wine) {
+                      return <WineInfo wine={wine} id={i} />;
+                    } else {
+                      return null;
+                    }
+                  })
+                : undefined}
+            </Wines>
+          </WineBox>
+        ) : undefined}
+      </Result>
     </>
   );
 }
@@ -194,6 +225,16 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 20px;
+`;
+
+const Result = styled.div`
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(172, 45, 49, 0.6);
 `;
 
 const StepBox = styled.div`
@@ -215,7 +256,6 @@ const FormBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: relative;
 `;
 
 const Step = styled.div`
@@ -258,13 +298,12 @@ const Bottom = styled.div`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  padding-right: 30px;
 `;
 
 const Button = styled.button`
   border: none;
   border-radius: 20px;
-  height: 30px;
+  height: 40px;
   width: 100px;
   background-color: rgba(172, 45, 49);
   color: white;
@@ -276,7 +315,7 @@ const WineBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 80px 0;
+  margin: 50px 0px;
 
   h2 {
     font-size: 27px;

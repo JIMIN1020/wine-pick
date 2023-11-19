@@ -4,6 +4,11 @@ const express = require("express");
 const cors = require("cors");
 const http = require("http");
 const https = require("https");
+const axios = require("axios");
+const axiosInstance = axios.create({
+  // baseURL: "https://wine-bot.fly.dev",
+  baseURL: "http://localhost:4000",
+});
 const { run } = require("./vivino");
 const app = express(); // app에 express 담기 -> 이를 통해 서버 관리!
 
@@ -85,12 +90,53 @@ app.post("/api/search/encyc", function (req, res) {
 
 /* ------------- Vivino API ------------- */
 app.post("/vivino", async function (req, res) {
-  const { query: wine } = req.body;
-  console.log("wine->", wine);
+  const { query: wines } = req.body;
+  console.log("wine->", wines);
 
   // vivino API call
-  const result = await run(wine);
+  const result = await Promise.all(
+    wines.map(async (wine) => {
+      let info = await run(wine);
 
-  console.log("result->", result);
-  console.log("done!!!");
+      try {
+        // Call the /translate API and update the info
+        const translationResult = await axiosInstance.post("/translate", {
+          name: info.name,
+        });
+        info.ko_name = translationResult.data;
+      } catch (err) {
+        console.log("Error response:", err);
+      }
+
+      return info;
+    })
+  );
+
+  res.send(result);
+});
+
+/* ------------- Papago API ------------- */
+app.post("/translate", function (req, res) {
+  var api_url = "https://openapi.naver.com/v1/papago/n2mt";
+  var request = require("request");
+  var options = {
+    url: api_url,
+    form: { source: "fr", target: "ko", text: req.body.name },
+    headers: {
+      "X-Naver-Client-Id": process.env.NAVER_CLIENT_ID,
+      "X-Naver-Client-Secret": process.env.NAVER_CLIENT_SECRET,
+    },
+  };
+
+  request.post(options, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      const responseBody = JSON.parse(body);
+      const translationResult = responseBody.message.result.translatedText;
+      res.writeHead(200, { "Content-Type": "text/json;charset=utf-8" });
+      res.end(translationResult);
+    } else {
+      res.status(response.statusCode).end();
+      console.log("error = " + response.statusCode);
+    }
+  });
 });

@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaWineGlass } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const [shadow, setShadow] = useState(false);
+
+  /* ------------- 스크롤 시 헤더 그림자 부여 ------------- */
+  useEffect(() => {
+    // 핸들러 함수 -> 스크롤 될 시 true
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 0;
+      setShadow(isScrolled);
+    };
+
+    // scroll event
+    window.addEventListener("scroll", handleScroll);
+
+    // clean up
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
-    <HeaderBar>
+    <HeaderBar shadow={shadow}>
       <Nav>
         <Logo to="/">
           <FaWineGlass className="icon" />
@@ -31,7 +49,8 @@ const HeaderBar = styled.header`
   position: fixed;
   top: 0;
   z-index: 999;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-shadow: ${(props) =>
+    props.shadow ? "rgba(0, 0, 0, 0.16) 0px 1px 4px" : "none"};
 `;
 
 const Nav = styled.nav`

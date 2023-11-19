@@ -1,47 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { styled } from "styled-components";
 import wineImg from "../assets/images/wine-bottle.png";
 
 const WineInfo = ({ wine }) => {
-  /* ------------- 문자열 내 html 태그 처리 ------------- */
-  function createMarkup(html) {
-    return { __html: html };
-  }
   /* ------------- 와인 클릭 시 링크로 이동 ------------- */
   const onClick = () => {
     window.open(wine.link);
   };
+
+  useEffect(() => {}, []);
   return (
     <Container onClick={onClick}>
       <Thumbnail>
-        {wine.thumbnail ? (
-          <img
-            src={wine.thumbnail.replace("http", "https")}
-            height="180"
-            alt="wine img"
-          />
+        {wine.thumb ? (
+          <img src={wine.thumb} height="180" alt="wine img" />
         ) : (
           <img src={wineImg} width="150" alt="wine img" />
         )}
       </Thumbnail>
       <Description>
-        <h3
-          dangerouslySetInnerHTML={createMarkup(
-            wine.title.replace(/<b>/g, "").replace(/<\/b>/g, "")
-          )}
-        />
-        <p
-          dangerouslySetInnerHTML={
-            wine.description
-              ? createMarkup(
-                  wine.description
-                    .replace(/<b>/g, "")
-                    .replace(/<\/b>/g, "")
-                    .replace("테이스팅 노트", "")
-                )
-              : createMarkup("상세 설명이 없습니다.")
-          }
-        />
+        <h3>{wine.name}</h3>
+        <span>{wine.ko_name}</span>
+        <p>{wine.average_rating}</p>
       </Description>
     </Container>
   );
