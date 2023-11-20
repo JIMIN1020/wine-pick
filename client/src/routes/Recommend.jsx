@@ -51,9 +51,7 @@ function Recommend() {
       await axiosInstance
         .post("/vivino", { query: keywords })
         .then((res) => {
-          console.log("response->", res.data);
-
-          // 데이터 가공
+          // 데이터 가공 -> 오류가 넘어온 경우 제거
           const data = res.data.filter(
             (data) => !data.hasOwnProperty("status")
           );
@@ -73,7 +71,13 @@ function Recommend() {
     setLoading(true);
     setWineData([]);
     // 메세지 만들기
-    const question = `please recommend 5 ${msg.type} wine products which is ${msg.body} bodied, ${msg.tannin} tannin, ${msg.sweetness} sweetness, ${msg.acidity} acidity. Answer specific wine names only without numbering.`;
+    const question = `please recommend 5 ${msg.type} wine products which is ${
+      msg.body
+    } bodied, ${msg.tannin} tannin, ${
+      msg.sweetness === "dry" ? "dry" : msg.sweetness + " sweetness"
+    }, ${
+      msg.acidity
+    } acidity. Answer specific wine names only without numbering.`;
 
     // message 배열
     const newMessage = [
@@ -84,12 +88,12 @@ function Recommend() {
       {
         role: "user",
         content:
-          "please recommend 5 red wine products which is light bodied, medium tannin, little sweetness, medium acidity. Answer specific wine names only without numbering.",
+          "please recommend 5 red wine products which is full bodied, medium tannin, dry, medium acidity. Answer specific wine names only without numbering.",
       },
       {
         role: "assistant",
         content:
-          "Louis Jadot Bourgogne Pinot Noir\nDomaine de la Janasse Côtes du Rhône Grenache\nPio Cesare Fides Barbera d'Alba\nMarcel Lapierre Morgon Gamay\nLaurenz V. Friendly Grüner Veltliner Zweigelt",
+          "Screaming Eagle The Flight\nLicenciado Rioja Gran Reserva\nPio Cesare Barolo\nE. Guigal Côte-Rôtie La Turque\nGaja Ca'Marcanda Promis Toscana",
       },
       {
         role: "user",
@@ -182,7 +186,7 @@ function Recommend() {
               name="당도"
               state={sweetness}
               setState={setSweetness}
-              first="low"
+              first="dry"
               last="high"
             />
           )}

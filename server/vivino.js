@@ -199,11 +199,9 @@ const run = async (
     }
 
     let index = 1;
-    let isNext = false;
     let pause = 0;
 
     while (result.vinos.length < 1) {
-      console.log("in!!!!");
       const response = await page.goto(
         `${BASE_URL}${SEARCH_PATH}${name}&start=${index}`,
         {
@@ -218,7 +216,6 @@ const run = async (
           console.log("Results were collected from the page:", index);
           result.vinos.push(...pageItems);
           index++;
-          //   isNext = true;
         } else {
           // no more data
           result.status = STATUS_FULL;
@@ -229,13 +226,11 @@ const run = async (
         console.log(
           `Waited for ${pause * PAUSE_MULTIPLIER} seconds on the page ${index}`
         );
-        // isNext = true;
       } else {
         // return some error info
         result.http_status = response.status(); // http status
         result.page_index = index; // index of the problem page
         result.status = STATUS_ERROR_RESPONSE;
-        // isNext = false;
       }
     }
 
