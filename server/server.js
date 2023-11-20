@@ -91,7 +91,16 @@ app.post("/api/search/encyc", function (req, res) {
 /* ------------- Vivino API ------------- */
 app.post("/vivino", async function (req, res) {
   const { query: wines } = req.body;
-  console.log("wine->", wines);
+  const code = {
+    France: "fr",
+    Italy: "it",
+    Germany: "de",
+    Spain: "es",
+  };
+
+  const getCode = (country) => {
+    return code.hasOwnProperty(country) ? code[country] : "en";
+  };
 
   // vivino API call
   const result = await Promise.all(
@@ -102,6 +111,7 @@ app.post("/vivino", async function (req, res) {
         // Call the /translate API and update the info
         const translationResult = await axiosInstance.post("/translate", {
           name: info.name,
+          code: getCode(info.country),
         });
         info.ko_name = translationResult.data;
       } catch (err) {
@@ -121,7 +131,7 @@ app.post("/translate", function (req, res) {
   var request = require("request");
   var options = {
     url: api_url,
-    form: { source: "fr", target: "ko", text: req.body.name },
+    form: { source: req.body.code, target: "ko", text: req.body.name },
     headers: {
       "X-Naver-Client-Id": process.env.NAVER_CLIENT_ID,
       "X-Naver-Client-Secret": process.env.NAVER_CLIENT_SECRET,
