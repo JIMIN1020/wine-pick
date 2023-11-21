@@ -74,21 +74,27 @@ export default TypeStep;
 
 const Container = styled.div`
   width: 100%;
-  height: 350px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Title = styled.div`
-  height: 150px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+const Title = styled.div`
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
 
   & h1 {
     margin: 0;
+    font-size: 28px;
+  }
+
+  & p {
+    margin: 10px 0px;
   }
 `;
 
@@ -106,20 +112,19 @@ const Wrapper = styled.div`
   height: auto;
 
   display: grid;
-  grid-template-columns: 200px 200px 200px;
-  grid-template-rows: 60px 60px;
+  grid-template-columns: 180px 180px 180px;
+  grid-template-rows: 50px 50px;
   gap: 20px;
 `;
 
 const TypeButton = styled.label`
   background-color: ${(props) =>
     props.selected ? "rgb(172, 45, 49, 1)" : "rgb(255, 255, 255)"};
-  width: 200px;
-  height: 60px;
+  width: 180px;
+  height: 50px;
   font-size: 16px;
   font-weight: 550;
   border-radius: 10px;
-  margin-left: 10px;
   cursor: pointer;
   color: ${(props) => (props.selected ? "white" : "rgb(65, 65, 65)")};
   border: 1px solid

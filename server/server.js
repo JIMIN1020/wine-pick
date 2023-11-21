@@ -4,12 +4,12 @@ const express = require("express");
 const cors = require("cors");
 const http = require("http");
 const https = require("https");
+const { run } = require("./vivino");
 const axios = require("axios");
 const axiosInstance = axios.create({
   // baseURL: "https://wine-bot.fly.dev",
   baseURL: "http://localhost:4000",
 });
-const { run } = require("./vivino");
 const app = express(); // app에 express 담기 -> 이를 통해 서버 관리!
 
 // body-parser 세팅
@@ -102,27 +102,23 @@ app.post("/vivino", async function (req, res) {
     return code.hasOwnProperty(country) ? code[country] : "en";
   };
 
-  // vivino API call
-  const result = await Promise.all(
-    wines.map(async (wine) => {
-      let info = await run(wine);
+  let result;
+  try {
+    result = await run(wines);
 
-      try {
-        // Call the /translate API and update the info
-        const translationResult = await axiosInstance.post("/translate", {
-          name: info.name,
-          code: getCode(info.country),
-        });
-        info.ko_name = translationResult.data;
-      } catch (err) {
-        console.log("Error response:", err);
-      }
-
-      return info;
-    })
-  );
-
-  res.send(result);
+    // Call the /translate API and update the info
+    for (const wine of result) {
+      const translationResult = await axiosInstance.post("/translate", {
+        name: wine.name,
+        code: getCode(wine.country),
+      });
+      wine.ko_name = translationResult.data;
+    }
+  } catch (err) {
+    console.log("Error response:", err);
+  } finally {
+    res.send(result);
+  }
 });
 
 /* ------------- Papago API ------------- */

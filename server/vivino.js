@@ -3,7 +3,7 @@ const minimist = require("minimist");
 const fs = require("fs-extra");
 
 const run = async (
-  name,
+  names,
   countryCode = "US",
   stateCode = "",
   minPrice,
@@ -69,6 +69,8 @@ const run = async (
     );
   };
 
+  let result = [];
+
   // collect items from the page
   const collectItems = () => {
     const numerize = (stringNumber) => {
@@ -88,44 +90,50 @@ const run = async (
     const THUMB_REGEX = /"(.*)"/;
     const PRICE_SELECTOR = ".wine-price-value";
 
-    const data = [...document.querySelectorAll(CARDS_SELECTOR)].map((e) => {
-      const name = e.querySelector(NAME_SELECTOR).textContent.trim();
-      const link = e.querySelector(LINK_SELECTOR).href;
-      const thumb = e.querySelector(THUMB_SELECTOR)
-        ? "https:" +
-          e
-            .querySelector(THUMB_SELECTOR)
-            .style.backgroundImage.match(THUMB_REGEX)[1]
-        : undefined;
-      const country = e.querySelector(COUNTRY_SELECTOR).textContent.trim();
-      const region = e.querySelector(REGION_SELECTOR).textContent.trim();
-      const average_rating = e.querySelector(AVERAGE_RATING_SELECTOR)
-        ? numerize(e.querySelector(AVERAGE_RATING_SELECTOR).textContent.trim())
-        : undefined;
-      const ratings = e.querySelector(RATINGS_SELECTOR)
-        ? Number(
+    try {
+      const data = [...document.querySelectorAll(CARDS_SELECTOR)].map((e) => {
+        const name = e.querySelector(NAME_SELECTOR).textContent.trim();
+        const link = e.querySelector(LINK_SELECTOR).href;
+        const thumb = e.querySelector(THUMB_SELECTOR)
+          ? "https:" +
             e
-              .querySelector(RATINGS_SELECTOR)
-              .textContent.replace(RATING_REPLACMENT, "")
-              .trim()
-          )
-        : undefined;
-      const price = e.querySelector(PRICE_SELECTOR)
-        ? numerize(e.querySelector(PRICE_SELECTOR).textContent.trim())
-        : undefined;
+              .querySelector(THUMB_SELECTOR)
+              .style.backgroundImage.match(THUMB_REGEX)[1]
+          : undefined;
+        const country = e.querySelector(COUNTRY_SELECTOR).textContent.trim();
+        const region = e.querySelector(REGION_SELECTOR).textContent.trim();
+        const average_rating = e.querySelector(AVERAGE_RATING_SELECTOR)
+          ? numerize(
+              e.querySelector(AVERAGE_RATING_SELECTOR).textContent.trim()
+            )
+          : undefined;
+        const ratings = e.querySelector(RATINGS_SELECTOR)
+          ? Number(
+              e
+                .querySelector(RATINGS_SELECTOR)
+                .textContent.replace(RATING_REPLACMENT, "")
+                .trim()
+            )
+          : undefined;
+        const price = e.querySelector(PRICE_SELECTOR)
+          ? numerize(e.querySelector(PRICE_SELECTOR).textContent.trim())
+          : undefined;
 
-      return {
-        name: name,
-        link: link,
-        thumb: thumb,
-        country: country,
-        region: region,
-        average_rating: average_rating,
-        ratings: ratings,
-        price: price,
-      };
-    });
-    return data;
+        return {
+          name: name,
+          link: link,
+          thumb: thumb,
+          country: country,
+          region: region,
+          average_rating: average_rating,
+          ratings: ratings,
+          price: price,
+        };
+      });
+      return data;
+    } catch (err) {
+      result.status = "NO_RESULT";
+    }
   };
 
   // Set default state for the US
@@ -140,9 +148,7 @@ const run = async (
   const STATUS_ERROR_SHIP_TO = "SHIP_TO_ERROR";
   const STATUS_ERROR_SHIP_TO_CONFIRM = "SHIP_TO_CONFIRM_ERROR";
   const STATUS_ERROR_EXCEPTION = "SOME_EXCEPTION";
-  const PAUSE_MULTIPLIER = 15;
-
-  let result = { vinos: [] };
+  const PAUSE_MULTIPLIER = 1;
 
   const browser = await puppeteer.launch({
     headless: true,
@@ -198,68 +204,53 @@ const run = async (
       }
     }
 
-    let index = 1;
-    let pause = 0;
-
-    while (result.vinos.length < 1) {
-      const response = await page.goto(
-        `${BASE_URL}${SEARCH_PATH}${name}&start=${index}`,
-        {
-          waitUntil: "domcontentloaded",
-        }
-      );
-
-      if (response.ok()) {
-        pause = 0;
-        const pageItems = await page.evaluate(collectItems);
-        if (pageItems.length) {
-          console.log("Results were collected from the page:", index);
-          result.vinos.push(...pageItems);
-          index++;
-        } else {
-          // no more data
-          result.status = STATUS_FULL;
-        }
-      } else if (response.status() === 429) {
-        pause++;
-        await page.waitForTimeout(pause * PAUSE_MULTIPLIER * 1000);
-        console.log(
-          `Waited for ${pause * PAUSE_MULTIPLIER} seconds on the page ${index}`
+    for (const name of names) {
+      let index = 1;
+      let pause = 0;
+      let data = [];
+      while (data.length < 1) {
+        const response = await page.goto(
+          `${BASE_URL}${SEARCH_PATH}${name}&start=${index}`,
+          {
+            waitUntil: "domcontentloaded",
+          }
         );
-      } else {
-        // return some error info
-        result.http_status = response.status(); // http status
-        result.page_index = index; // index of the problem page
-        result.status = STATUS_ERROR_RESPONSE;
+
+        if (response.ok()) {
+          pause = 0;
+          const pageItems = await page.evaluate(collectItems);
+          if (pageItems.length) {
+            console.log("Results were collected from the page:", index);
+            data.push(...pageItems);
+            index++;
+          } else {
+            // no more data
+            result.status = STATUS_FULL;
+          }
+        } else if (response.status() === 429) {
+          pause++;
+          await page.waitForTimeout(pause * PAUSE_MULTIPLIER * 1000);
+          console.log(
+            `Waited for ${
+              pause * PAUSE_MULTIPLIER
+            } seconds on the page ${index}`
+          );
+        } else {
+          // return some error info
+          result.http_status = response.status(); // http status
+          result.page_index = index; // index of the problem page
+          result.status = STATUS_ERROR_RESPONSE;
+        }
       }
+      result.push(data[0]);
     }
-
-    // Filter data
-    // result.vinos = result.vinos.filter((e) => {
-    //   if (minPrice && (e.price || !noPriceIncluded) && e.price < minPrice)
-    //     return false;
-    //   if (maxPrice && e.price > maxPrice) return false;
-    //   if (minRatings && e.ratings < minRatings) return false;
-    //   if (maxRatings && e.ratings > maxRatings) return false;
-    //   if (minAverage && e.average_rating < minAverage) return false;
-    //   if (maxAverage && e.average_rating > maxAverage) return false;
-    //   return true;
-    // });
-    result = result.vinos[0];
-
-    // console.log(JSON.stringify(result.vinos, null, 2));
+    return result;
   } catch (error) {
     result.status = STATUS_ERROR_EXCEPTION;
     result.message = error;
     console.log("Exception:", error);
   } finally {
     console.log("Finish!");
-
-    // output results to the file
-    // const outFile = fs.createWriteStream('vivino-out.json');
-    // outFile.write(JSON.stringify(result, null, 2));
-    // outFile.end();
-    return result;
 
     await browser.close();
   }
@@ -269,7 +260,7 @@ const args = minimist(process.argv.slice(2));
 console.log(args);
 
 const {
-  name,
+  names,
   country,
   state,
   minPrice,

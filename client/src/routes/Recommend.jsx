@@ -125,6 +125,7 @@ function Recommend() {
   return (
     <>
       <Container>
+        <Title>와인 추천받기</Title>
         <Steps step={step} />
         <FormBox>
           {loading && <Loading />}
@@ -209,6 +210,11 @@ const Container = styled.div`
   gap: 20px;
 `;
 
+const Title = styled.h1`
+  font-size: 34px;
+  margin: 0px;
+`;
+
 const Result = styled.div`
   width: 100%;
   height: auto;
@@ -220,8 +226,8 @@ const Result = styled.div`
 `;
 
 const FormBox = styled.div`
-  width: 800px;
-  height: 500px;
+  width: 700px;
+  height: 400px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   border-radius: 10px;
@@ -234,11 +240,9 @@ const FormBox = styled.div`
 
 const Bottom = styled.div`
   width: 100%;
-  height: 150px;
+  height: 100px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
 `;
 
 const Button = styled.button`

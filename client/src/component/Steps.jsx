@@ -36,7 +36,7 @@ export default Steps;
 
 const StepBox = styled.div`
   width: 800px;
-  height: 100px;
+  height: 80px;
 
   display: flex;
   align-items: center;
@@ -44,7 +44,7 @@ const StepBox = styled.div`
 `;
 const Line = styled.div`
   width: 50px;
-  height: 3px;
+  height: 2px;
   border-radius: 5px;
   background-color: ${(props) => (props.step ? "rgb(172, 45, 49)" : "#e2e2e2")};
 `;
@@ -59,7 +59,7 @@ const Step = styled.div`
   & span {
     margin: 0px 10px;
     color: #222222;
-    font-weight: 600;
+    font-weight: 500;
   }
 `;
 

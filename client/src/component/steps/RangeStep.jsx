@@ -5,7 +5,10 @@ function RangeStep({ name, state, setState, first, last }) {
   const [step, setStep] = useState(1);
   return (
     <Container>
-      <Title>{name} 선택</Title>
+      <Title>
+        <h1>{name} 선택</h1>
+        <p>원하는 와인의 타입을 선택해주세요.</p>
+      </Title>
       <Form>
         <TypeButton>
           <Radio
@@ -85,20 +88,31 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
-const Title = styled.h1`
-  height: 70px;
-  font-size: 30px;
+const Title = styled.div`
+  height: 100px;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: end;
+
+  & h1 {
+    margin: 0;
+    font-size: 28px;
+  }
+
+  & p {
+    margin: 10px 0px;
+  }
 `;
 
 const Form = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 280px;
+  height: 200px;
   gap: 20px;
   align-items: center;
 `;

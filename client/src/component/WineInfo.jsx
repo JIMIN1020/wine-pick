@@ -42,6 +42,7 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
   &:hover {
