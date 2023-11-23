@@ -3,9 +3,9 @@ import styled from "styled-components";
 import TypeStep from "../component/steps/TypeStep";
 import RangeStep from "../component/steps/RangeStep";
 import axios from "axios";
-import WineInfo from "../component/WineInfo";
 import Loading from "../component/Loading";
 import Steps from "../component/Steps";
+import Result from "../component/Result";
 
 function Recommend() {
   const [step, setStep] = useState(1);
@@ -174,24 +174,12 @@ function Recommend() {
           </Bottom>
         </FormBox>
       </Container>
-      <Result>
-        {wineData.length > 0 && !loading ? (
-          <WineBox tabIndex={0} ref={wineBoxRef}>
-            <h2>내 취향에 맞는 와인은?</h2>
-            <Wines>
-              {!loading && wineData.length > 0
-                ? wineData.map((wine, i) => {
-                    if (wine) {
-                      return <WineInfo wine={wine} id={i} />;
-                    } else {
-                      return null;
-                    }
-                  })
-                : undefined}
-            </Wines>
-          </WineBox>
-        ) : undefined}
-      </Result>
+      <Result
+        title="내 취향에 맞는 와인은?"
+        wineData={wineData}
+        wineBoxRef={wineBoxRef}
+        loading={loading}
+      />
     </>
   );
 }
@@ -213,16 +201,6 @@ const Container = styled.div`
 const Title = styled.h1`
   font-size: 34px;
   margin: 0px;
-`;
-
-const Result = styled.div`
-  width: 100%;
-  height: auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(172, 45, 49, 0.6);
 `;
 
 const FormBox = styled.div`
@@ -254,22 +232,10 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
   margin: 10px;
-`;
+  font-weight: 600;
 
-const WineBox = styled.div`
-  width: 95%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 50px 0px;
-
-  h2 {
-    font-size: 27px;
-    color: white;
+  transition: transform 0.1s ease-in;
+  &:hover {
+    transform: scale(1.1);
   }
-`;
-
-const Wines = styled.div`
-  display: flex;
-  gap: 20px;
 `;
