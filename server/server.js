@@ -91,33 +91,32 @@ app.post("/api/search/encyc", function (req, res) {
 /* ------------- Vivino API ------------- */
 app.post("/vivino", async function (req, res) {
   const { query: wines } = req.body;
-  const code = {
-    France: "fr",
-    Italy: "it",
-    Germany: "de",
-    Spain: "es",
-  };
+  // const code = {
+  //   France: "fr",
+  //   Italy: "it",
+  //   Germany: "de",
+  //   Spain: "es",
+  // };
 
-  const getCode = (country) => {
-    return code.hasOwnProperty(country) ? code[country] : "en";
-  };
+  // const getCode = (country) => {
+  //   return code.hasOwnProperty(country) ? code[country] : "en";
+  // };
 
   let result;
   try {
     result = await run(wines);
 
     // Call the /translate API and update the info
-    for (const wine of result) {
-      const translationResult = await axiosInstance.post("/translate", {
-        name: wine.name,
-        code: getCode(wine.country),
-      });
-      wine.ko_name = translationResult.data;
-    }
+    // for (const wine of result) {
+    //   const translationResult = await axiosInstance.post("/translate", {
+    //     name: wine.name,
+    //     code: getCode(wine.country),
+    //   });
+    //   wine.ko_name = translationResult.data;
+    // }
+    res.send(result);
   } catch (err) {
     console.log("Error response:", err);
-  } finally {
-    res.send(result);
   }
 });
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import TypeStep from "../component/steps/TypeStep";
 import RangeStep from "../component/steps/RangeStep";
 import axios from "axios";
@@ -125,9 +125,18 @@ function Recommend() {
   return (
     <>
       <Container>
-        <Title>와인 추천받기</Title>
-        <Steps step={step} />
+        <Title>
+          <h1>와인 추천받기</h1>
+          <p>취향에 맞는 와인을 추천받을 수 있어요!</p>
+          <p>
+            와인과 페어링하고 싶은 음식을 선택하고,
+            <br />
+            음식의 특징에 대한 키워드를 선택해주세요.
+          </p>
+          <div>wine box</div>
+        </Title>
         <FormBox>
+          <Steps step={step} />
           {loading && <Loading />}
           {step === 1 && <TypeStep type={type} setType={setType} />}
           {step === 2 && (
@@ -186,26 +195,52 @@ function Recommend() {
 
 export default Recommend;
 
+const fadein = keyframes`
+  /* from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  } */
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 10%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+`;
+
 const Container = styled.div`
   width: 100%;
   height: calc(100vh - 80px);
   overflow: auto;
+  animation: ${fadein} 2s;
 
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 50px;
 `;
 
-const Title = styled.h1`
-  font-size: 34px;
-  margin: 0px;
+const Title = styled.div`
+  width: 350px;
+  height: 600px;
+  margin: 0px 30px;
+
+  & h1 {
+    font-size: 34px;
+  }
+
+  & p {
+    line-height: 25px;
+  }
 `;
 
 const FormBox = styled.div`
   width: 700px;
-  height: 400px;
+  height: 600px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   border-radius: 10px;
@@ -213,6 +248,7 @@ const FormBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   position: relative;
 `;
 

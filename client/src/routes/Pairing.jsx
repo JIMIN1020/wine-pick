@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { keyword } from "../assets/keyword";
 import axios from "axios";
 import Loading from "../component/Loading";
@@ -186,10 +186,28 @@ function Pairing() {
 
 export default Pairing;
 
+const fadein = keyframes`
+  /* from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  } */
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 10%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+`;
+
 const Container = styled.div`
   width: 100%;
   height: calc(100vh - 80px);
   overflow: auto;
+  animation: ${fadein} 2s;
 
   display: flex;
   align-items: center;
@@ -201,6 +219,7 @@ const Title = styled.div`
   width: 350px;
   height: 600px;
   margin: 0px 30px;
+
   & h1 {
     font-size: 34px;
   }
@@ -216,6 +235,7 @@ const FormBox = styled.div`
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  border: 0.5px solid gray;
   position: relative;
 
   display: flex;

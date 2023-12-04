@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Lottie from "lottie-react";
 import winelottie from "../assets/winelottie.json";
 import { quotes } from "../assets/wineQuotes";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const Home = () => {
   return (
@@ -19,12 +20,21 @@ const Home = () => {
       <Guide>
         <MenuBox>
           <h3>와인 추천받기</h3>
+          <div>
+            <FaArrowRightLong style={{ width: "30px", height: "20px" }} />
+          </div>
         </MenuBox>
         <MenuBox>
           <h3>AI 소믈리에와 대화</h3>
+          <div>
+            <FaArrowRightLong style={{ width: "30px", height: "20px" }} />
+          </div>
         </MenuBox>
         <MenuBox>
           <h3>페어링 추천받기</h3>
+          <div>
+            <FaArrowRightLong style={{ width: "30px", height: "20px" }} />
+          </div>
         </MenuBox>
       </Guide>
       <Screen>
@@ -84,6 +94,15 @@ const MenuBox = styled.div`
   & h3 {
     margin: 0;
   }
+
+  & div {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const Text = styled.div`

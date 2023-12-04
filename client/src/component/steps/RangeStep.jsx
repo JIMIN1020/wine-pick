@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+const description = {
+  바디감:
+    "바디감은 입안에서 느껴지는 와인의 무게감을 뜻합니다.\n보통 타닌이 풍부할 수록, 알코올 도수가 높을 수록 와인의 바디감은 높게 느껴집니다.",
+  타닌: "타닌은 와인에서 떫은 맛을 내는 성분입니다.\n일반적인 레드와인은 medium 정도의 타닌을 가지고 있으며, 타닌이 풍부할수록 바디감이 높아집니다.",
+  산도: "산도는 와인에서 느껴지는 신 맛의 정도를 말합니다.\n산도는 레드 와인, 화이트 와인에 모두 존재하며 산도가 높을 수록 힘과 견고함을 가집니다.",
+  당도: "당도는 와인에서 느껴지는 단 맛의 정도를 말합니다.\n일반적인 레드 와인, 화이트 와인은 거의 대부분의 와인이 dry type에 속합니다.",
+};
+
 function RangeStep({ name, state, setState, first, last }) {
   const [step, setStep] = useState(1);
   return (
     <Container>
       <Title>
         <h1>{name} 선택</h1>
-        <p>원하는 와인의 타입을 선택해주세요.</p>
+        <p>{description[name]}</p>
       </Title>
       <Form>
         <TypeButton>
@@ -84,7 +92,7 @@ export default RangeStep;
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,19 +100,22 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  height: 100px;
+  height: 170px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: end;
 
   & h1 {
-    margin: 0;
+    margin: 10px 0px;
     font-size: 28px;
   }
 
   & p {
     margin: 10px 0px;
+    white-space: pre-wrap;
+    text-align: center;
+    line-height: 25px;
   }
 `;
 
@@ -112,7 +123,7 @@ const Form = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 200px;
+  height: 230px;
   gap: 20px;
   align-items: center;
 `;

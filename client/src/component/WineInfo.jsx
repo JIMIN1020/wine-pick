@@ -16,7 +16,7 @@ const WineInfo = ({ wine }) => {
       </Thumbnail>
       <Description>
         <WineName>{wine.name}</WineName>
-        <KoName>{wine.ko_name}</KoName>
+        {/* <KoName>{wine.ko_name}</KoName> */}
         <Region>
           <Flag countryName={wine.country} />
           <span>
@@ -24,7 +24,8 @@ const WineInfo = ({ wine }) => {
           </span>
         </Region>
         <Rating>
-          <SiVivino /> {wine.average_rating}
+          <SiVivino />
+          <span>{wine.average_rating ? wine.average_rating : "-"}</span>
         </Rating>
       </Description>
     </Container>
@@ -35,7 +36,7 @@ export default WineInfo;
 
 const Container = styled.div`
   width: 220px;
-  height: 400px;
+  height: 380px;
   background-color: white;
   margin: 20px 0px;
   border-radius: 15px;
@@ -94,7 +95,8 @@ const KoName = styled.span`
   overflow: hidden;
 `;
 
-const Rating = styled.span`
+const Rating = styled.div`
+  width: 40px;
   background-color: rgba(172, 45, 49);
   font-size: 12px;
   color: white;
@@ -104,13 +106,14 @@ const Rating = styled.span`
   margin: 10px 0px;
 
   display: flex;
+  justify-content: space-around;
   align-items: center;
 `;
 
 const Region = styled.div`
   width: 100%;
   font-size: 13px;
-  margin: 10px 0px;
+  margin: 5px 0px;
 
   display: flex;
   align-items: center;
