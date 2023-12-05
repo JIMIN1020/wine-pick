@@ -73,7 +73,8 @@ const Screen = styled.div`
 const Guide = styled.div`
   width: 100%;
   height: 400px;
-  background-color: rgba(172, 45, 49, 0.248);
+  /* background-color: rgba(172, 45, 49, 0.248); */
+  background-color: #eae0db;
 
   display: flex;
   justify-content: center;

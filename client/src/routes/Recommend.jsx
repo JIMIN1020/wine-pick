@@ -6,6 +6,9 @@ import axios from "axios";
 import Loading from "../component/Loading";
 import Steps from "../component/Steps";
 import Result from "../component/Result";
+import { BiSolidDownArrow } from "react-icons/bi";
+import { GoCircle, GoCheckCircleFill } from "react-icons/go";
+import LastStep from "../component/steps/LastStep";
 
 function Recommend() {
   const [step, setStep] = useState(1);
@@ -118,22 +121,151 @@ function Recommend() {
       if (step === 4) setButtonName("추천받기");
       setStep((prev) => prev + 1);
     } else if (step === 5) {
+      setStep(6);
       let msg = { type, body, tannin, sweetness, acidity };
       gptCall(msg);
     }
   };
+
+  const clearAll = () => {
+    setStep(1);
+    setType("Red");
+    setBody("light");
+    setTannin("low");
+    setAcidity("low");
+    setSweetness("dry");
+    setWineData([]);
+  };
+
   return (
     <>
       <Container>
         <Title>
-          <h1>와인 추천받기</h1>
-          <p>취향에 맞는 와인을 추천받을 수 있어요!</p>
-          <p>
-            와인과 페어링하고 싶은 음식을 선택하고,
-            <br />
-            음식의 특징에 대한 키워드를 선택해주세요.
-          </p>
-          <div>wine box</div>
+          <div>
+            <h1>와인 추천받기</h1>
+            <p>취향에 맞는 와인을 추천받을 수 있어요!</p>
+            <p>
+              와인과 페어링하고 싶은 음식을 선택하고,
+              <br />
+              음식의 특징에 대한 키워드를 선택해주세요.
+            </p>
+          </div>
+          <Selected>
+            <h2>
+              <BiSolidDownArrow
+                style={{ margin: "0px 10px", height: "15px" }}
+              />
+              선택한 와인
+              <BiSolidDownArrow
+                style={{ margin: "0px 10px", height: "15px" }}
+              />
+            </h2>
+            <MyWine>
+              <Image src="img/wine-bottle.png" alt="wine bottle" />
+              <LineBox>
+                <Line>
+                  {step > 1 ? (
+                    <GoCheckCircleFill
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        color: "rgba(172, 45, 49)",
+                      }}
+                    />
+                  ) : (
+                    <GoCircle
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        color: "#525252",
+                      }}
+                    />
+                  )}
+                  <span>타입 - {type}</span>
+                </Line>
+                <Line>
+                  {step > 2 ? (
+                    <GoCheckCircleFill
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        color: "rgba(172, 45, 49)",
+                      }}
+                    />
+                  ) : (
+                    <GoCircle
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        color: "#525252",
+                      }}
+                    />
+                  )}
+                  <span>바디 - {body}</span>
+                </Line>
+                <Line>
+                  {step > 3 ? (
+                    <GoCheckCircleFill
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        color: "rgba(172, 45, 49)",
+                      }}
+                    />
+                  ) : (
+                    <GoCircle
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        color: "#525252",
+                      }}
+                    />
+                  )}
+                  <span>타닌 - {tannin}</span>
+                </Line>
+                <Line>
+                  {step > 4 ? (
+                    <GoCheckCircleFill
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        color: "rgba(172, 45, 49)",
+                      }}
+                    />
+                  ) : (
+                    <GoCircle
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        color: "#525252",
+                      }}
+                    />
+                  )}
+                  <span>산도 - {acidity}</span>
+                </Line>
+                <Line>
+                  {step > 5 ? (
+                    <GoCheckCircleFill
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        color: "rgba(172, 45, 49)",
+                      }}
+                    />
+                  ) : (
+                    <GoCircle
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        color: "#525252",
+                      }}
+                    />
+                  )}
+                  <span>당도 - {sweetness}</span>
+                </Line>
+              </LineBox>
+            </MyWine>
+          </Selected>
         </Title>
         <FormBox>
           <Steps step={step} />
@@ -175,11 +307,12 @@ function Recommend() {
               last="high"
             />
           )}
+          {step === 6 && <LastStep clearAll={clearAll} />}
           <Bottom>
-            {step >= 2 && (
+            {step >= 2 && step <= 5 && (
               <Button onClick={() => setStep((prev) => prev - 1)}>Back</Button>
             )}
-            <Button onClick={onClick}>{buttonName}</Button>
+            {step <= 5 && <Button onClick={onClick}>{buttonName}</Button>}
           </Bottom>
         </FormBox>
       </Container>
@@ -216,7 +349,7 @@ const Container = styled.div`
   width: 100%;
   height: calc(100vh - 80px);
   overflow: auto;
-  animation: ${fadein} 2s;
+  animation: ${fadein} 1s;
 
   display: flex;
   align-items: center;
@@ -228,6 +361,10 @@ const Title = styled.div`
   width: 350px;
   height: 600px;
   margin: 0px 30px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   & h1 {
     font-size: 34px;
@@ -273,5 +410,53 @@ const Button = styled.button`
   transition: transform 0.1s ease-in;
   &:hover {
     transform: scale(1.1);
+  }
+`;
+
+const Selected = styled.div`
+  width: 320px;
+  h2 {
+    text-align: center;
+    font-size: 20px;
+  }
+`;
+
+const MyWine = styled.div`
+  width: 100%;
+  height: 230px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  border-radius: 10px;
+  border: 0.5px solid gray;
+
+  display: flex;
+  align-items: center;
+`;
+
+const Image = styled.img`
+  height: 170px;
+  margin: 10px 0px;
+`;
+
+const LineBox = styled.div`
+  width: 170px;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Line = styled.div`
+  width: 100%;
+  height: 35px;
+  box-sizing: border-box;
+  font-size: 14px;
+
+  display: flex;
+  align-items: center;
+
+  & span {
+    margin: 0px 10px;
   }
 `;

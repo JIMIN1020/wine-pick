@@ -38,7 +38,7 @@ function TypeStep({ type, setType }) {
             </Icon>
             <Desc>
               <h5>White</h5>
-              <span>청포도로 만든 레드 와인</span>
+              <span>청포도로 만든 화이트 와인</span>
             </Desc>
           </TypeButton>
           <TypeButton selected={type === "Sparkling"}>

@@ -207,7 +207,7 @@ const Container = styled.div`
   width: 100%;
   height: calc(100vh - 80px);
   overflow: auto;
-  animation: ${fadein} 2s;
+  animation: ${fadein} 1s;
 
   display: flex;
   align-items: center;

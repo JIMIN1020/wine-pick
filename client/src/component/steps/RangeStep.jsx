@@ -115,7 +115,7 @@ const Title = styled.div`
     margin: 10px 0px;
     white-space: pre-wrap;
     text-align: center;
-    line-height: 25px;
+    line-height: 30px;
   }
 `;
 
