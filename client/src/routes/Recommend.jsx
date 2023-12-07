@@ -6,17 +6,19 @@ import axios from "axios";
 import Loading from "../component/Loading";
 import Steps from "../component/Steps";
 import Result from "../component/Result";
-import { BiSolidDownArrow } from "react-icons/bi";
-import { GoCircle, GoCheckCircleFill } from "react-icons/go";
 import LastStep from "../component/steps/LastStep";
+import Selected from "../component/Selected";
 
 function Recommend() {
   const [step, setStep] = useState(1);
-  const [type, setType] = useState("Red");
-  const [body, setBody] = useState("light");
-  const [tannin, setTannin] = useState("low");
-  const [acidity, setAcidity] = useState("low");
-  const [sweetness, setSweetness] = useState("low");
+  const [options, setOptions] = useState({
+    type: "Red",
+    body: "light",
+    tannin: "low",
+    acidity: "low",
+    sweetness: "dry",
+  });
+
   const [buttonName, setButtonName] = useState("다음");
 
   const [response, setResponse] = useState(""); // GPT 응답
@@ -72,16 +74,13 @@ function Recommend() {
 
   /* ------------- OpenAI API 요청 ------------- */
   const gptCall = async (msg) => {
+    const { type, body, tannin, sweetness, acidity } = msg;
     setLoading(true);
     setWineData([]);
     // 메세지 만들기
-    const question = `please recommend 5 ${msg.type} wine products which is ${
-      msg.body
-    } bodied, ${msg.tannin} tannin, ${
-      msg.sweetness === "dry" ? "dry" : msg.sweetness + " sweetness"
-    }, ${
-      msg.acidity
-    } acidity. Answer specific wine names only without numbering.`;
+    const question = `please recommend 5 ${type} wine products which is ${body} bodied, ${tannin} tannin, ${
+      sweetness === "dry" ? "dry" : sweetness + " sweetness"
+    }, ${acidity} acidity. Answer specific wine names only without numbering.`;
 
     // message 배열
     const newMessage = [
@@ -122,18 +121,19 @@ function Recommend() {
       setStep((prev) => prev + 1);
     } else if (step === 5) {
       setStep(6);
-      let msg = { type, body, tannin, sweetness, acidity };
-      gptCall(msg);
+      gptCall(options);
     }
   };
 
   const clearAll = () => {
     setStep(1);
-    setType("Red");
-    setBody("light");
-    setTannin("low");
-    setAcidity("low");
-    setSweetness("dry");
+    setOptions({
+      type: "Red",
+      body: "light",
+      tannin: "low",
+      acidity: "low",
+      sweetness: "dry",
+    });
     setWineData([]);
   };
 
@@ -150,170 +150,67 @@ function Recommend() {
               음식의 특징에 대한 키워드를 선택해주세요.
             </p>
           </div>
-          <Selected>
-            <h2>
-              <BiSolidDownArrow
-                style={{ margin: "0px 10px", height: "15px" }}
-              />
-              선택한 와인
-              <BiSolidDownArrow
-                style={{ margin: "0px 10px", height: "15px" }}
-              />
-            </h2>
-            <MyWine>
-              <Image src="img/wine-bottle.png" alt="wine bottle" />
-              <LineBox>
-                <Line>
-                  {step > 1 ? (
-                    <GoCheckCircleFill
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        color: "rgba(172, 45, 49)",
-                      }}
-                    />
-                  ) : (
-                    <GoCircle
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        color: "#525252",
-                      }}
-                    />
-                  )}
-                  <span>타입 - {type}</span>
-                </Line>
-                <Line>
-                  {step > 2 ? (
-                    <GoCheckCircleFill
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        color: "rgba(172, 45, 49)",
-                      }}
-                    />
-                  ) : (
-                    <GoCircle
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        color: "#525252",
-                      }}
-                    />
-                  )}
-                  <span>바디 - {body}</span>
-                </Line>
-                <Line>
-                  {step > 3 ? (
-                    <GoCheckCircleFill
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        color: "rgba(172, 45, 49)",
-                      }}
-                    />
-                  ) : (
-                    <GoCircle
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        color: "#525252",
-                      }}
-                    />
-                  )}
-                  <span>타닌 - {tannin}</span>
-                </Line>
-                <Line>
-                  {step > 4 ? (
-                    <GoCheckCircleFill
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        color: "rgba(172, 45, 49)",
-                      }}
-                    />
-                  ) : (
-                    <GoCircle
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        color: "#525252",
-                      }}
-                    />
-                  )}
-                  <span>산도 - {acidity}</span>
-                </Line>
-                <Line>
-                  {step > 5 ? (
-                    <GoCheckCircleFill
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        color: "rgba(172, 45, 49)",
-                      }}
-                    />
-                  ) : (
-                    <GoCircle
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        color: "#525252",
-                      }}
-                    />
-                  )}
-                  <span>당도 - {sweetness}</span>
-                </Line>
-              </LineBox>
-            </MyWine>
-          </Selected>
+          <Selected step={step} options={options} />
         </Title>
         <FormBox>
           <Steps step={step} />
           {loading && <Loading />}
-          {step === 1 && <TypeStep type={type} setType={setType} />}
+          {step === 1 && (
+            <TypeStep
+              type={options.type}
+              setOptions={setOptions}
+              onClick={onClick}
+            />
+          )}
           {step === 2 && (
             <RangeStep
               name="바디감"
-              state={body}
-              setState={setBody}
+              state={options.body}
+              setState={(value) => setOptions({ ...options, body: value })}
               first="light"
               last="full"
+              onClick={onClick}
+              buttonName={buttonName}
+              setMainStep={setStep}
             />
           )}
           {step === 3 && (
             <RangeStep
               name="타닌"
-              state={tannin}
-              setState={setTannin}
+              state={options.tannin}
+              setState={(value) => setOptions({ ...options, tannin: value })}
               first="low"
               last="strong"
+              onClick={onClick}
+              buttonName={buttonName}
+              setMainStep={setStep}
             />
           )}
           {step === 4 && (
             <RangeStep
               name="산도"
-              state={acidity}
-              setState={setAcidity}
+              state={options.acidity}
+              setState={(value) => setOptions({ ...options, acidity: value })}
               first="low"
               last="high"
+              onClick={onClick}
+              buttonName={buttonName}
+              setMainStep={setStep}
             />
           )}
           {step === 5 && (
             <RangeStep
               name="당도"
-              state={sweetness}
-              setState={setSweetness}
+              state={options.sweetness}
+              setState={(value) => setOptions({ ...options, sweetness: value })}
               first="dry"
               last="high"
+              onClick={onClick}
+              buttonName={buttonName}
+              setMainStep={setStep}
             />
           )}
           {step === 6 && <LastStep clearAll={clearAll} />}
-          <Bottom>
-            {step >= 2 && step <= 5 && (
-              <Button onClick={() => setStep((prev) => prev - 1)}>Back</Button>
-            )}
-            {step <= 5 && <Button onClick={onClick}>{buttonName}</Button>}
-          </Bottom>
         </FormBox>
       </Container>
       <Result
@@ -329,12 +226,6 @@ function Recommend() {
 export default Recommend;
 
 const fadein = keyframes`
-  /* from {
-      opacity:0;
-  }
-  to {
-      opacity:1;
-  } */
   0% {
     opacity: 0;
     transform: translate3d(0, 10%, 0);
@@ -387,76 +278,4 @@ const FormBox = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-`;
-
-const Bottom = styled.div`
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-`;
-
-const Button = styled.button`
-  border: none;
-  border-radius: 20px;
-  height: 40px;
-  width: 100px;
-  background-color: rgba(172, 45, 49);
-  color: white;
-  cursor: pointer;
-  margin: 10px;
-  font-weight: 600;
-
-  transition: transform 0.1s ease-in;
-  &:hover {
-    transform: scale(1.1);
-  }
-`;
-
-const Selected = styled.div`
-  width: 320px;
-  h2 {
-    text-align: center;
-    font-size: 20px;
-  }
-`;
-
-const MyWine = styled.div`
-  width: 100%;
-  height: 230px;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-  border-radius: 10px;
-  border: 0.5px solid gray;
-
-  display: flex;
-  align-items: center;
-`;
-
-const Image = styled.img`
-  height: 170px;
-  margin: 10px 0px;
-`;
-
-const LineBox = styled.div`
-  width: 170px;
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const Line = styled.div`
-  width: 100%;
-  height: 35px;
-  box-sizing: border-box;
-  font-size: 14px;
-
-  display: flex;
-  align-items: center;
-
-  & span {
-    margin: 0px 10px;
-  }
 `;

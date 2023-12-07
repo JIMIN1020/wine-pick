@@ -9,8 +9,18 @@ const description = {
   당도: "당도는 와인에서 느껴지는 단 맛의 정도를 말합니다.\n일반적인 레드 와인, 화이트 와인은 거의 대부분의 와인이 dry type에 속합니다.",
 };
 
-function RangeStep({ name, state, setState, first, last }) {
+function RangeStep({
+  name,
+  state,
+  setState,
+  first,
+  last,
+  onClick,
+  buttonName,
+  setMainStep,
+}) {
   const [step, setStep] = useState(1);
+
   return (
     <Container>
       <Title>
@@ -84,6 +94,10 @@ function RangeStep({ name, state, setState, first, last }) {
           <span>{last}</span>
         </TypeButton>
       </Form>
+      <Bottom>
+        <Button onClick={() => setMainStep((prev) => prev - 1)}>Back</Button>
+        <Button onClick={onClick}>{buttonName}</Button>
+      </Bottom>
     </Container>
   );
 }
@@ -123,7 +137,7 @@ const Form = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 230px;
+  height: 300px;
   gap: 20px;
   align-items: center;
 `;
@@ -157,6 +171,30 @@ const Radio = styled.input`
   &:hover {
     background-color: ${(props) =>
       props.selected ? "rgba(172, 45, 49)" : "rgb(214, 214, 214)"};
+    transform: scale(1.1);
+  }
+`;
+
+const Bottom = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+`;
+
+const Button = styled.button`
+  border: none;
+  border-radius: 20px;
+  height: 40px;
+  width: 100px;
+  background-color: rgba(172, 45, 49);
+  color: white;
+  cursor: pointer;
+  margin: 10px;
+  font-weight: 600;
+
+  transition: transform 0.1s ease-in;
+  &:hover {
     transform: scale(1.1);
   }
 `;

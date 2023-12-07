@@ -34,13 +34,13 @@ const StepBox = styled.div`
   height: 100px;
 
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
 `;
 const Line = styled.div`
   width: 50px;
   height: 3px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   background-color: ${(props) => (props.step ? "rgb(172, 45, 49)" : "#e2e2e2")};
 `;
 

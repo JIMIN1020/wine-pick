@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FaWineBottle } from "react-icons/fa";
 
-function TypeStep({ type, setType }) {
+function TypeStep({ type, setOptions, onClick }) {
   return (
     <Container>
       <Title>
@@ -16,7 +16,7 @@ function TypeStep({ type, setType }) {
               type="radio"
               checked={type === "Red"}
               readOnly
-              onClick={() => setType("Red")}
+              onClick={() => setOptions((prev) => ({ ...prev, type: "Red" }))}
             />
             <Icon>
               <FaWineBottle style={{ width: "30px", height: "30px" }} />
@@ -31,7 +31,7 @@ function TypeStep({ type, setType }) {
               type="radio"
               checked={type === "White"}
               readOnly
-              onClick={() => setType("White")}
+              onClick={() => setOptions((prev) => ({ ...prev, type: "White" }))}
             />
             <Icon>
               <FaWineBottle style={{ width: "30px", height: "30px" }} />
@@ -46,7 +46,9 @@ function TypeStep({ type, setType }) {
               type="radio"
               checked={type === "Sparkling"}
               readOnly
-              onClick={() => setType("Sparkling")}
+              onClick={() =>
+                setOptions((prev) => ({ ...prev, type: "Sparkling" }))
+              }
             />
             <Icon>
               <FaWineBottle style={{ width: "30px", height: "30px" }} />
@@ -61,7 +63,7 @@ function TypeStep({ type, setType }) {
               type="radio"
               checked={type === "Rosé"}
               readOnly
-              onClick={() => setType("Rosé")}
+              onClick={() => setOptions((prev) => ({ ...prev, type: "Rosé" }))}
             />
             <Icon>
               <FaWineBottle style={{ width: "30px", height: "30px" }} />
@@ -76,7 +78,9 @@ function TypeStep({ type, setType }) {
               type="radio"
               checked={type === "Dessert"}
               readOnly
-              onClick={() => setType("Dessert")}
+              onClick={() =>
+                setOptions((prev) => ({ ...prev, type: "Dessert" }))
+              }
             />
             <Icon>
               <FaWineBottle style={{ width: "30px", height: "30px" }} />
@@ -91,7 +95,9 @@ function TypeStep({ type, setType }) {
               type="radio"
               checked={type === "Fortified"}
               readOnly
-              onClick={() => setType("Fortified")}
+              onClick={() =>
+                setOptions((prev) => ({ ...prev, type: "Fortified" }))
+              }
             />
             <Icon>
               <FaWineBottle style={{ width: "30px", height: "30px" }} />
@@ -103,6 +109,9 @@ function TypeStep({ type, setType }) {
           </TypeButton>
         </Wrapper>
       </Form>
+      <Bottom>
+        <Button onClick={onClick}>다음</Button>
+      </Bottom>
     </Container>
   );
 }
@@ -137,7 +146,7 @@ const Title = styled.div`
 
 const Form = styled.div`
   width: 100%;
-  height: 300px;
+  height: 500px;
 
   display: flex;
   justify-content: center;
@@ -208,4 +217,28 @@ const Icon = styled.div`
 
   display: flex;
   justify-content: center;
+`;
+
+const Bottom = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+`;
+
+const Button = styled.button`
+  border: none;
+  border-radius: 20px;
+  height: 40px;
+  width: 100px;
+  background-color: rgba(172, 45, 49);
+  color: white;
+  cursor: pointer;
+  margin: 10px;
+  font-weight: 600;
+
+  transition: transform 0.1s ease-in;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
