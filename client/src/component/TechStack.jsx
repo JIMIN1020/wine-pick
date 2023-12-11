@@ -150,10 +150,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(172, 45, 49, 0.7);
+  /* background-color: rgba(172, 45, 49, 0.7); */
 
   & h3 {
-    color: white;
+    /* color: white; */
     font-size: 25px;
     margin-top: 0;
     display: flex;
@@ -193,6 +193,9 @@ const Tech = styled.div`
   box-sizing: border-box;
   padding: 25px 25px;
   margin-bottom: 20px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  border: 0.5px solid gray;
 
   h4 {
     font-size: 22px;

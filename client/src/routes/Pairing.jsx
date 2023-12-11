@@ -104,7 +104,7 @@ function Pairing() {
   };
 
   const handleStep1 = () => {
-    if (food === "") {
+    if (food.trim() === "") {
       alert("값을 입력해주세요.");
       return;
     }
@@ -186,12 +186,6 @@ function Pairing() {
 export default Pairing;
 
 const fadein = keyframes`
-  /* from {
-      opacity:0;
-  }
-  to {
-      opacity:1;
-  } */
   0% {
     opacity: 0;
     transform: translate3d(0, 10%, 0);
