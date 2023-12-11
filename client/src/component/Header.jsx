@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaWineGlass } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { GrCircleInformation } from "react-icons/gr";
 
 const Header = () => {
   const [shadow, setShadow] = useState(false);
@@ -25,13 +26,18 @@ const Header = () => {
   return (
     <HeaderBar shadow={shadow}>
       <Nav>
-        <Logo to="/">
-          <FaWineGlass className="icon" />
-          Wine Bot
-        </Logo>
-        <LinkItem to="/recommend">추천받기</LinkItem>
-        <LinkItem to="/pairing">페어링</LinkItem>
-        <LinkItem to="/about">About</LinkItem>
+        <Links>
+          <Logo to="/">
+            <FaWineGlass className="icon" />
+            Wine Bot
+          </Logo>
+          <LinkItem to="/recommend">추천받기</LinkItem>
+          <LinkItem to="/pairing">페어링</LinkItem>
+        </Links>
+
+        <LinkItem to="/about">
+          <GrCircleInformation style={{ width: "22px", height: "22px" }} />
+        </LinkItem>
       </Nav>
     </HeaderBar>
   );
@@ -61,6 +67,7 @@ const Nav = styled.nav`
   margin: auto;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 const LinkItem = styled(Link)`
@@ -71,10 +78,16 @@ const LinkItem = styled(Link)`
   margin: 10px;
   padding: 5px 7px;
   border-radius: 7px;
+  display: flex;
+  align-items: center;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
+`;
+
+const Links = styled.div`
+  display: flex;
 `;
 
 const Logo = styled(Link)`

@@ -166,7 +166,6 @@ function Pairing() {
               </Keyword>
             ))}
           </KeywordBox>
-
           <Bottom>
             <Button onClick={gptCall}>추천받기</Button>
           </Bottom>
