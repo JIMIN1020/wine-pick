@@ -1,14 +1,14 @@
 import { styled } from "styled-components";
 import AppRouter from "./AppRouter";
 import GlobalStyle from "./GlobalStyle";
-import NavBar from "./component/NavBar";
+import Header from "./component/Header";
 
 function App() {
   return (
     <>
       <Container>
         <GlobalStyle />
-        <NavBar />
+        <Header />
         <AppRouter />
       </Container>
     </>
@@ -18,7 +18,7 @@ function App() {
 export default App;
 
 const Container = styled.div`
-  width: 99vw;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
