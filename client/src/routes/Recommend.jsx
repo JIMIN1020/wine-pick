@@ -28,8 +28,7 @@ function Recommend() {
 
   const wineBoxRef = useRef(null); // 결과물 포커싱
   const axiosInstance = axios.create({
-    // baseURL: "https://wine-bot.fly.dev",
-    baseURL: "http://localhost:4000",
+    baseURL: "https://wine-pick.fly.dev",
   });
 
   /* ------------- 결과 포커싱 ------------- */

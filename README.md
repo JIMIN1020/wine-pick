@@ -1,4 +1,4 @@
-# Wine Bot
+# Wine Pick!
 
 > https://wine-bot.netlify.app/
 
@@ -14,13 +14,9 @@
 
 <br>
 
-## 개발 기간
-
-2023.08.15 ~ 2023.08.20 (약 5일)
-
 <br>
 
-## 한계점
+## 유의사항
 
 1. Chat GPT의 추천이 때로는 적절하지 않습니다.
 
@@ -30,8 +26,8 @@
 
 <br>
 
-
 ## 기술 스택 & 사용한 라이브러리
+
 <img width="1017" alt="스크린샷 2023-08-28 오후 2 01 29" src="https://github.com/JIMIN1020/wine-bot/assets/121474189/374f6f69-a19f-441c-b967-cd6ecdf38415">
 
 <br>
