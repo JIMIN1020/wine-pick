@@ -78,9 +78,9 @@ function Recommend() {
     setLoading(true);
     setWineData([]);
     // 메세지 만들기
-    const question = `please recommend 5 ${type} wine products which is ${body} bodied, ${tannin} tannin, ${
+    const question = `Please recommend 5 ${type} wine products which is ${body} bodied, ${tannin} tannin, ${
       sweetness === "dry" ? "dry" : sweetness + " sweetness"
-    }, ${acidity} acidity. Answer specific wine names only without numbering.`;
+    }, ${acidity} acidity. Answer with specific wine name.`;
 
     // message 배열
     const newMessage = [
@@ -91,7 +91,7 @@ function Recommend() {
       {
         role: "user",
         content:
-          "please recommend 5 red wine products which is full bodied, medium tannin, dry, medium acidity. Answer specific wine names only without numbering.",
+          "Please recommend 5 red wine products which is full bodied, medium tannin, dry, medium acidity. Answer with specific wine name.",
       },
       {
         role: "assistant",

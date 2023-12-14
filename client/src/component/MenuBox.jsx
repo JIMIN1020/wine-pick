@@ -1,27 +1,28 @@
 import React from "react";
 import styled from "styled-components";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 function MenuBox() {
   return (
     <Container>
       <Box>
         <h3>와인 추천받기</h3>
-        <div>
+        <LinkItem to="/recommend">
           <FaArrowRightLong style={{ width: "30px", height: "20px" }} />
-        </div>
+        </LinkItem>
       </Box>
       <Box>
         <h3>페어링 추천받기</h3>
-        <div>
+        <LinkItem to="/pairing">
           <FaArrowRightLong style={{ width: "30px", height: "20px" }} />
-        </div>
+        </LinkItem>
       </Box>
       <Box>
-        <h3>About this App</h3>
-        <div>
+        <h3>About</h3>
+        <LinkItem to="/about">
           <FaArrowRightLong style={{ width: "30px", height: "20px" }} />
-        </div>
+        </LinkItem>
       </Box>
     </Container>
   );
@@ -31,8 +32,9 @@ export default MenuBox;
 
 const Container = styled.div`
   width: 100%;
-  height: 400px;
-  background-color: rgba(172, 45, 49, 0.248);
+  height: 350px;
+  /* background-color: rgba(172, 45, 49, 0.248); */
+  background-color: rgba(172, 45, 49, 0.5);
   /* background-color: #eae0db; */
 
   display: flex;
@@ -44,7 +46,7 @@ const Container = styled.div`
 const Box = styled.div`
   background-color: white;
   width: 300px;
-  height: 200px;
+  height: 170px;
   border-radius: 10px;
   border: 1px solid gray;
 
@@ -55,12 +57,14 @@ const Box = styled.div`
     margin: 0;
   }
 
-  & div {
-    display: flex;
-    justify-content: flex-end;
-  }
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+`;
+
+const LinkItem = styled(Link)`
+  text-decoration: none;
+  color: #151515;
+  display: flex;
+  justify-content: flex-end;
 `;

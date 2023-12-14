@@ -5,22 +5,26 @@ import winelottie from "../assets/winelottie.json";
 import { quotes } from "../assets/wineQuotes";
 import MenuBox from "../component/MenuBox";
 import Guide from "../component/Guide";
+import Footer from "../component/Footer";
 
 const Home = () => {
   return (
-    <Container>
-      <HomeScreen>
-        <Text>
-          <h1>{quotes.title[parseInt(Math.random() * 15)]}</h1>
-          <p>{quotes.line[parseInt(Math.random() * 16)]}</p>
-        </Text>
-        <LottieBox>
-          <Lottie animationData={winelottie} loop={true} className="lottie" />
-        </LottieBox>
-      </HomeScreen>
-      <MenuBox />
-      <Guide />
-    </Container>
+    <>
+      <Container>
+        <HomeScreen>
+          <Text>
+            <h1>{quotes.title[parseInt(Math.random() * 15)]}</h1>
+            <p>{quotes.line[parseInt(Math.random() * 16)]}</p>
+          </Text>
+          <LottieBox>
+            <Lottie animationData={winelottie} loop={true} className="lottie" />
+          </LottieBox>
+        </HomeScreen>
+        <MenuBox />
+        <Guide />
+      </Container>
+      <Footer />
+    </>
   );
 };
 
@@ -38,7 +42,7 @@ const Container = styled.div`
 const HomeScreen = styled.div`
   width: 100%;
   max-width: 1250px;
-  height: calc(100vh - 140px);
+  height: calc(100vh - 80px);
   display: flex;
   position: relative;
 `;
@@ -68,6 +72,8 @@ const LottieBox = styled.div`
   position: absolute;
   right: 0;
   bottom: 0;
+  box-sizing: border-box;
+  padding-bottom: 30px;
 
   display: flex;
   justify-content: center;

@@ -74,12 +74,13 @@ function Pairing() {
     const newMessage = [
       {
         role: "system",
-        content: "You are a wine sommelier who can recommend perfect wine.",
+        content:
+          "You are a wine sommelier who can recommend perfect wine for korean food.",
       },
       {
         role: "user",
         content:
-          "please recommend 5 wine products which would go well with 갈비찜. The keywords for this dish are 매콤한, 달콤한, 간장 베이스. Answer specific wine names only without numbering.",
+          "Please recommend 5 wine products which would go well with 갈비찜. The keywords for this menu are 매콤한, 달콤한, 간장 베이스. Answer with specific wine name.",
       },
       {
         role: "assistant",
@@ -97,6 +98,7 @@ function Pairing() {
       .post("/api/chat", newMessage)
       .then((res) => {
         setResponse(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log("Error response:", err);
@@ -146,7 +148,9 @@ function Pairing() {
           </Step>
           <h3>특징 선택</h3>
           <p>이 음식의 특징과 관련된 키워드를 선택해주세요.</p>
-          <p>(ex. 갈비찜인데 간장만 사용한 경우)</p>
+          <p style={{ color: "gray", fontSize: "12px" }}>
+            (ex. 갈비찜인데 간장만 사용한 경우)
+          </p>
           <KeywordBox>
             {keyword.key.map((key) => (
               <Keyword key={key} selected={selected.includes(key)}>
@@ -225,7 +229,7 @@ const Title = styled.div`
 const FormBox = styled.div`
   width: 350px;
   height: 600px;
-  border-radius: 20px;
+  border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   border: 0.5px solid gray;

@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { PiCursorClickFill, PiWarningDiamondFill } from "react-icons/pi";
 import TechStack from "../component/TechStack";
+import Footer from "../component/Footer";
 
 const About = () => {
   return (
@@ -47,6 +48,7 @@ const About = () => {
         </Description>
       </Container>
       <TechStack />
+      <Footer />
     </>
   );
 };
@@ -80,10 +82,6 @@ const Description = styled.div`
   box-sizing: border-box;
   padding: 0px 80px;
   text-align: center;
-
-  /* box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1);
-  -webkit-box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1);
-  -moz-box-shadow: 0px 0px 2px 0px rgba(164, 164, 164, 1); */
 
   h3 {
     font-size: 25px;

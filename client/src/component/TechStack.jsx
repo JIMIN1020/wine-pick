@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { RiOpenaiFill } from "react-icons/ri";
 import {
-  SiNaver,
   SiExpress,
   SiStyledcomponents,
   SiReactrouter,
@@ -18,7 +17,6 @@ import {
   FaGithub,
   FaReact,
   FaNodeJs,
-  FaKeyboard,
   FaFly,
   FaSpinner,
 } from "react-icons/fa";
@@ -145,12 +143,11 @@ const Container = styled.div`
   width: 100vw;
   position: relative;
   padding: 50px 0px;
-  margin-top: 30px;
+  margin: 30px 0px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-color: rgba(172, 45, 49, 0.7); */
 
   & h3 {
     /* color: white; */
