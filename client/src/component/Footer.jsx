@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <Container>
-      <Logo>Wine Bot</Logo>
+      <Logo>Wine Pick!</Logo>
       <LinkBar>
         <LinkItem to="/">Home</LinkItem>
         <LinkItem to="/recommend">Recommend</LinkItem>
@@ -18,7 +18,7 @@ function Footer() {
         <a href="mailto:jimins4920@gmail.com">
           <SiGmail className="icon" />
         </a>
-        <a href="https://github.com/JIMIN1020/wine-bot">
+        <a href="https://github.com/JIMIN1020/wine-pick">
           <SiGithub className="icon" />
         </a>
       </Icons>
@@ -32,10 +32,8 @@ const Container = styled.footer`
   width: 100vw;
   padding: 20px 0px;
   box-sizing: border-box;
-  /* background-color: #727272; */
   background-color: rgba(172, 45, 49, 0.8);
-  color: #e4e4e4;
-
+  color: #efefef;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,7 +58,7 @@ const LinkBar = styled.div`
 
 const LinkItem = styled(Link)`
   text-decoration: none;
-  color: #e4e4e4;
+  color: #efefef;
   font-size: 14px;
   font-weight: 500;
   display: flex;
@@ -83,7 +81,7 @@ const Icons = styled.div`
   margin: 10px 0px;
 
   & a {
-    color: #e4e4e4;
+    color: #efefef;
     cursor: pointer;
     margin: 0px 10px;
   }

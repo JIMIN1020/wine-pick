@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-function LastStep({ clearAll }) {
+function LastStep({ clearAll, height }) {
   return (
-    <Container>
+    <Container height={height}>
       <Title>
         <h1>또 다른 추천받기</h1>
         <p>다시 추천을 받고 싶으시다면 아래 버튼을 클릭해주세요!</p>
@@ -19,7 +19,7 @@ export default LastStep;
 
 const Container = styled.div`
   width: 100%;
-  height: 400px;
+  height: ${(props) => props.height}px;
   display: flex;
   flex-direction: column;
   align-items: center;

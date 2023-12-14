@@ -150,7 +150,7 @@ const Container = styled.div`
   align-items: center;
 
   & h3 {
-    /* color: white; */
+    color: rgba(172, 45, 49);
     font-size: 25px;
     margin-top: 0;
     display: flex;

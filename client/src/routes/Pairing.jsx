@@ -4,6 +4,8 @@ import { keyword } from "../assets/keyword";
 import axios from "axios";
 import Loading from "../component/Loading";
 import Result from "../component/Result";
+import KeywordStep from "../component/steps/KeywordStep";
+import LastStep from "../component/steps/LastStep";
 
 function Pairing() {
   const [food, setFood] = useState("");
@@ -12,7 +14,7 @@ function Pairing() {
 
   const [response, setResponse] = useState(""); // GPT 응답
   const [keywords, setKeywords] = useState([]); // GPT 답변 가공한 검색 키워드들
-  const [wineData, setWineData] = useState([]); // 네이버에게 전달받은 와인 데이터
+  const [wineData, setWineData] = useState([]); // Vivino에서 가져온 와인 데이터
   const [loading, setLoading] = useState(false); // 로딩 여부
 
   const wineBoxRef = useRef(null); // 결과물 포커싱
@@ -64,11 +66,14 @@ function Pairing() {
   /* ------------- OpenAI API 요청 ------------- */
   const gptCall = async (msg) => {
     setLoading(true);
-    setWineData([]);
+    setStep((prev) => prev + 1);
+
     // 메세지 만들기
-    const question = `please recommend 5 wine products which would go well with ${food}. The keywords for this dish are ${selected.join(
-      ", "
-    )}.`;
+    const question = `please recommend 5 wine products which would go well with ${food}. ${
+      selected.length > 0
+        ? "The keywords for this dish are" + selected.join(", ") + "."
+        : ""
+    } Answer specific wine names only without numbering.`;
 
     // message 배열
     const newMessage = [
@@ -80,7 +85,7 @@ function Pairing() {
       {
         role: "user",
         content:
-          "Please recommend 5 wine products which would go well with 갈비찜. The keywords for this menu are 매콤한, 달콤한, 간장 베이스. Answer with specific wine name.",
+          "Please recommend 5 wine products which would go well with 갈비찜. The keywords for this menu are 매콤한, 달콤한, 간장 베이스. Answer specific wine names only without numbering.",
       },
       {
         role: "assistant",
@@ -105,13 +110,22 @@ function Pairing() {
       });
   };
 
-  const handleStep1 = () => {
+  const handleStep = () => {
     if (food.trim() === "") {
       alert("값을 입력해주세요.");
       return;
     }
 
     setStep((prev) => prev + 1);
+  };
+
+  const clearAll = () => {
+    setStep(1);
+    setFood("");
+    setResponse("");
+    setSelected([]);
+    setKeywords([]);
+    setWineData([]);
   };
 
   return (
@@ -130,49 +144,34 @@ function Pairing() {
           <Step>
             <Num>Step 1</Num>
           </Step>
-          <h3>음식 선택</h3>
-          <p>와인과 페어링하고 싶은 음식을 선택해주세요.</p>
-          <Input
-            type="text"
-            value={food}
-            onChange={(e) => setFood(e.target.value)}
-          />
-          <Bottom>
-            <Button onClick={handleStep1}>다음</Button>
-          </Bottom>
-          {step === 2 && <Disabled />}
+          <Content>
+            <h3>음식 선택</h3>
+            <p>와인과 페어링하고 싶은 음식을 선택해주세요.</p>
+            <Input
+              type="text"
+              value={food}
+              onChange={(e) => setFood(e.target.value)}
+            />
+            <Bottom>
+              <Button onClick={handleStep}>다음</Button>
+            </Bottom>
+          </Content>
+
+          {step >= 2 && <Disabled />}
         </FormBox>
         <FormBox step={step === 2}>
           <Step>
             <Num>Step 2</Num>
           </Step>
-          <h3>특징 선택</h3>
-          <p>이 음식의 특징과 관련된 키워드를 선택해주세요.</p>
-          <p style={{ color: "gray", fontSize: "12px" }}>
-            (ex. 갈비찜인데 간장만 사용한 경우)
-          </p>
-          <KeywordBox>
-            {keyword.key.map((key) => (
-              <Keyword key={key} selected={selected.includes(key)}>
-                <input
-                  type="checkbox"
-                  checked={selected.includes(key)}
-                  readOnly
-                  onClick={() =>
-                    setSelected((prev) =>
-                      prev.includes(key)
-                        ? prev.filter((item) => item !== key)
-                        : [...prev, key]
-                    )
-                  }
-                />
-                <span>{key}</span>
-              </Keyword>
-            ))}
-          </KeywordBox>
-          <Bottom>
-            <Button onClick={gptCall}>추천받기</Button>
-          </Bottom>
+          {step <= 2 && (
+            <KeywordStep
+              keys={keyword.key}
+              selected={selected}
+              setSelected={setSelected}
+              gptCall={gptCall}
+            />
+          )}
+          {step === 3 && <LastStep clearAll={clearAll} height={300} />}
           {step === 1 && <Disabled />}
           {loading && <Loading />}
         </FormBox>
@@ -240,7 +239,11 @@ const FormBox = styled.div`
   align-items: center;
 
   box-sizing: border-box;
-  padding: 40px 10px;
+  padding: 40px 20px;
+
+  & h1 {
+    font-size: 20px;
+  }
 
   & h3 {
     font-weight: 550;
@@ -251,6 +254,13 @@ const FormBox = styled.div`
     margin: 0;
     margin-bottom: 10px;
   }
+`;
+
+const Content = styled.div`
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Disabled = styled.div`
@@ -297,40 +307,6 @@ const Input = styled.input`
     outline: none;
   }
   margin: 50px 0px;
-`;
-
-const KeywordBox = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin: 20px 0px;
-`;
-
-const Keyword = styled.label`
-  padding: 5px 10px;
-  background-color: ${(props) =>
-    props.selected ? "rgb(172, 45, 49)" : "#e2e2e2"};
-  border-radius: 15px;
-  color: ${(props) => (props.selected ? "white" : "black")};
-  font-size: 14px;
-  font-weight: 550;
-  cursor: pointer;
-
-  & input {
-    width: 0;
-    height: 0;
-    display: none;
-  }
-
-  transition: transform 0.1s ease-in;
-  &:hover {
-    background-color: ${(props) =>
-      props.selected ? "rgba(172, 45, 49)" : "#e2e2e2"};
-    transform: scale(1.1);
-  }
 `;
 
 const Bottom = styled.div`

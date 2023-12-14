@@ -15,8 +15,9 @@ const About = () => {
           </h3>
           <p>이 어플리케이션은 React JS와 Node JS를 기반으로 개발되었습니다.</p>
           <p>
-            사용자가 와인에 대한 취향을 입력하고 <strong>`추천받기`</strong>{" "}
-            버튼을 클릭하면, 취향에 맞는 와인을 추천받을 수 있습니다.
+            와인에 대한 취향이나 페어링할 음식을 입력하고{" "}
+            <strong>`추천받기`</strong> 버튼을 클릭하면, 취향에 맞는 와인을
+            추천받을 수 있습니다.
             <br />
           </p>
           <p>
@@ -72,9 +73,8 @@ const Container = styled.div`
 `;
 
 const Description = styled.div`
-  width: 900px;
+  width: 1000px;
   display: flex;
-  border-radius: 10px;
   margin-bottom: 50px;
 
   flex-direction: column;
@@ -87,6 +87,7 @@ const Description = styled.div`
     font-size: 25px;
     display: flex;
     align-items: center;
+    color: rgba(172, 45, 49);
   }
 
   p {

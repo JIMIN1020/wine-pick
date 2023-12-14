@@ -29,10 +29,10 @@ const Header = () => {
         <Links>
           <Logo to="/">
             <FaWineGlass className="icon" />
-            Wine Bot
+            Wine Pick!
           </Logo>
-          <LinkItem to="/recommend">추천받기</LinkItem>
-          <LinkItem to="/pairing">페어링</LinkItem>
+          <LinkItem to="/recommend">와인 추천</LinkItem>
+          <LinkItem to="/pairing">페어링 추천</LinkItem>
         </Links>
 
         <LinkItem to="/about">

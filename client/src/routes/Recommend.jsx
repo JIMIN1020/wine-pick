@@ -23,7 +23,7 @@ function Recommend() {
 
   const [response, setResponse] = useState(""); // GPT 응답
   const [keywords, setKeywords] = useState([]); // GPT 답변 가공한 검색 키워드들
-  const [wineData, setWineData] = useState([]); // 네이버에게 전달받은 와인 데이터
+  const [wineData, setWineData] = useState([]); // Vivino에서 가져온 와인 데이터
   const [loading, setLoading] = useState(false); // 로딩 여부
 
   const wineBoxRef = useRef(null); // 결과물 포커싱
@@ -80,7 +80,7 @@ function Recommend() {
     // 메세지 만들기
     const question = `Please recommend 5 ${type} wine products which is ${body} bodied, ${tannin} tannin, ${
       sweetness === "dry" ? "dry" : sweetness + " sweetness"
-    }, ${acidity} acidity. Answer with specific wine name.`;
+    }, ${acidity} acidity. Answer specific wine product names only without numbering.`;
 
     // message 배열
     const newMessage = [
@@ -91,7 +91,7 @@ function Recommend() {
       {
         role: "user",
         content:
-          "Please recommend 5 red wine products which is full bodied, medium tannin, dry, medium acidity. Answer with specific wine name.",
+          "Please recommend 5 red wine products which is full bodied, medium tannin, dry, medium acidity. Answer specific wine product names only without numbering.",
       },
       {
         role: "assistant",
@@ -134,6 +134,7 @@ function Recommend() {
       acidity: "low",
       sweetness: "dry",
     });
+    setResponse("");
     setWineData([]);
   };
 
@@ -210,7 +211,7 @@ function Recommend() {
               setMainStep={setStep}
             />
           )}
-          {step === 6 && <LastStep clearAll={clearAll} />}
+          {step === 6 && <LastStep clearAll={clearAll} height={400} />}
         </FormBox>
       </Container>
       <Result
