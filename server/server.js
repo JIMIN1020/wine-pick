@@ -333,12 +333,12 @@ const run = async (
         // check the country and state
         isDestinationRight = await isShipTo(countryCode, stateCode);
         if (!isDestinationRight) {
-          console.log('"Ship To" changing can not be confirmed!');
+          // console.log('"Ship To" changing can not be confirmed!');
           result.status = STATUS_ERROR_SHIP_TO_CONFIRM;
           return;
         }
       } else {
-        console.log('"Ship To" was not changed!');
+        // console.log('"Ship To" was not changed!');
         result.status = STATUS_ERROR_SHIP_TO;
         return;
       }
@@ -360,7 +360,7 @@ const run = async (
           pause = 0;
           const pageItems = await page.evaluate(collectItems);
           if (pageItems.length) {
-            console.log("Results were collected from the page:", index);
+            // console.log("Results were collected from the page:", index);
             data.push(...pageItems);
             index++;
           } else {
@@ -390,11 +390,8 @@ const run = async (
     result.message = error;
     console.log("Exception:", error);
   } finally {
-    console.log("Finish!");
+    // console.log("Finish!");
 
     await browser.close();
   }
 };
-
-const args = minimist(process.argv.slice(2));
-console.log(args);

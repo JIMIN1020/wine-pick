@@ -1,8 +1,9 @@
 # Wine Pick!
 
-> [프로그램 설명 페이지](https://jimin1020.notion.site/Wine-Bot-6489ece0622846efa949f10231dd398b?pvs=4)
+> [프로그램 설명 페이지](https://jimin1020.notion.site/Wine-Pick-f93702d664cf47af8638d5433200c911?pvs=4)
 
 ![winebot](https://github.com/JIMIN1020/wine-pick/assets/121474189/7efb12af-1133-49ad-8a22-675909e6682f)
+![pairing](https://github.com/JIMIN1020/wine-pick/assets/121474189/24c9a691-bc5d-421a-b694-f19374c66a84)
 
 **React, Node.js**를 기반으로 개발한 와인 추천 앱입니다.
 
