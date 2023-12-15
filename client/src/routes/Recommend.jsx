@@ -54,7 +54,7 @@ function Recommend() {
     // 비비노 API 요청 함수
     const getWineData = async () => {
       await axiosInstance
-        .post("/vivino", { query: keywords })
+        .post("/api/vivino", { query: keywords })
         .then((res) => {
           // 데이터 가공 -> 오류가 넘어온 경우 제거
           const data = res.data.filter(
@@ -108,6 +108,7 @@ function Recommend() {
       .post("/api/chat", newMessage)
       .then((res) => {
         setResponse(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log("Error response:", err);

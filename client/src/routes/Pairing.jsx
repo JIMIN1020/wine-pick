@@ -45,8 +45,9 @@ function Pairing() {
     // 비비노 API 요청 함수
     const getWineData = async () => {
       await axiosInstance
-        .post("/vivino", { query: keywords })
+        .post("/api/vivino", { query: keywords })
         .then((res) => {
+          console.log("done!");
           // 데이터 가공 -> 오류가 넘어온 경우 제거
           const data = res.data.filter(
             (data) => !data.hasOwnProperty("status")
@@ -89,7 +90,7 @@ function Pairing() {
       {
         role: "assistant",
         content:
-          "Screaming Eagle The Flight\nLicenciado Rioja Gran Reserva\nPio Cesare Barolo\nE. Guigal Côte-Rôtie La Turque\nGaja Ca'Marcanda Promis Toscana",
+          "Clos Galena Galena\nChâteau Maillet Pomerol\nFrank Family Cabernet Sauvignon\nLenotti Amarone della Valpolicella Classico\nGaja Ca'Marcanda Promis Toscana",
       },
       {
         role: "user",
