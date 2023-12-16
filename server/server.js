@@ -292,9 +292,13 @@ const run = async (
 
   const browser = await puppeteer.launch({
     headless: true,
+    ignoreHTTPSErrors: true,
+    executablePath:
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
     defaultViewport: { width: 1920, height: 1040 },
     devtools: false,
-    args: ["--start-maximized"],
+    // args: ["--start-maximized"],
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
 
   const page = await browser.newPage();
