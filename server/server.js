@@ -98,7 +98,7 @@ app.post("/api/vivino", async function (req, res) {
   //   return code.hasOwnProperty(country) ? code[country] : "en";
   // };
 
-  let result;
+  let result = {};
   try {
     result = await run(wines);
 
@@ -154,6 +154,8 @@ const run = async (
   minAverage,
   maxAverage
 ) => {
+  let result = [];
+
   // set country and state
   const setShipTo = async (countryCode, stateCode) => {
     return await page.evaluate(
@@ -208,8 +210,6 @@ const run = async (
       stateCode
     );
   };
-
-  let result = [];
 
   // collect items from the page
   const collectItems = () => {
@@ -272,7 +272,8 @@ const run = async (
       });
       return data;
     } catch (err) {
-      result.status = "NO_RESULT";
+      // result.status = "NO_RESULT";
+      console.log("[evaluation error]: " + err.message);
     }
   };
 
@@ -293,11 +294,9 @@ const run = async (
   const browser = await puppeteer.launch({
     headless: true,
     ignoreHTTPSErrors: true,
-    executablePath:
-      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    executablePath: "/usr/bin/chromium",
     defaultViewport: { width: 1920, height: 1040 },
     devtools: false,
-    // args: ["--start-maximized"],
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
 
@@ -352,7 +351,7 @@ const run = async (
       let index = 1;
       let pause = 0;
       let data = [];
-      while (data.length < 1) {
+      while (!data || data.length < 1) {
         const response = await page.goto(
           `${BASE_URL}${SEARCH_PATH}${name}&start=${index}`,
           {

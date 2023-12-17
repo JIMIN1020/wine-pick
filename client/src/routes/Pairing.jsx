@@ -47,7 +47,6 @@ function Pairing() {
       await axiosInstance
         .post("/api/vivino", { query: keywords })
         .then((res) => {
-          console.log("done!");
           // 데이터 가공 -> 오류가 넘어온 경우 제거
           const data = res.data.filter(
             (data) => !data.hasOwnProperty("status")

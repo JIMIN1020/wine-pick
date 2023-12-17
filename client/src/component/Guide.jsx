@@ -83,7 +83,8 @@ const Image = styled.img`
 
 const Line = styled.div`
   width: 100%;
-  max-width: 1200px;
+  box-sizing: border-box;
+  padding: 0 20px;
   height: 500px;
   margin: 20px 0px;
 `;
@@ -99,6 +100,8 @@ const Desc = styled.div`
   width: 100%;
   height: 100%;
   max-width: 500px;
+  box-sizing: border-box;
+  padding: 0 15px;
 
   display: flex;
   flex-direction: column;

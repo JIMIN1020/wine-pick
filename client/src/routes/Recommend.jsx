@@ -108,7 +108,6 @@ function Recommend() {
       .post("/api/chat", newMessage)
       .then((res) => {
         setResponse(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log("Error response:", err);
